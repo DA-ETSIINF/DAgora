@@ -34,7 +34,7 @@ def reunionAsistances(request, reunion_name):
 
         # Cambiar el valor de la instancia de la attendance y guarda los cambios en la base de datos
         attendance = reunion.attendances.get(user = request.user)
-        attendance.asistance = asistValue == True  # True si asistValue (que es el value del botton que puede ser Yes o No) es Yes, False si es No (distinto a Yes)
+        attendance.asistance = asistValue # True si asistValue (que es el value del botton que puede ser Yes o No) es Yes, False si es No (distinto a Yes)
         attendance.save()
 
 
@@ -58,6 +58,7 @@ def createReunion(request):
         
 
     # APRENDER JQUERY PARA PODER HACER ESTO SIN RECARGAR PAGINA / CAMBIAR URL AL PULSAR BOTONES
+    # Alternativamente --> Poner codigo de javascript para que no se borre la informacion en el form al recargar pagina
     if request.method == 'GET':
         searchCriteria = request.GET.get('SearchCriteriaButton')
         print(searchCriteria)

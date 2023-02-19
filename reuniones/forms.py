@@ -79,22 +79,8 @@ class UserSelectionFormClass(forms.Form):
 
 
 
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-# vvv Unused Code vvv maybe for future use?
 
 
-# code for a form to change the asistance attribute --> i think i will change it for custom buttons, as i can make them change it onClick instead of having to press a submit button
-class SingleCheckboxInput(forms.widgets.CheckboxSelectMultiple):
-    def render(self, name, value, attrs=None, renderer=None):
-        attrs['onclick'] = "document.getElementById('id_%s_0').checked=false; document.getElementById('id_%s_1').checked=false; this.checked=true" % (name, name)
-        return super().render(name, value, attrs, renderer)
 
-
-class ChangeAsistanceForm(forms.Form):
-    asistance = forms.MultipleChoiceField(
-        widget=SingleCheckboxInput,
-        choices=((True, 'True'), (False, 'False')),
-        required=True,
-    )
     
 
