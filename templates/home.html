@@ -1,0 +1,75 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<body>
+
+    <div class="banner">  
+        <img id="logo" src="{% static 'css/LogoDA.png' %}">
+    </div>
+
+    <div class="header">
+        <ul class="headerMenu">
+            <li class="headerButton">
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="headerButton"> Home</li>
+            
+            {% if user.is_authenticated %}
+
+            <li class="headerButton"><a href="{% url 'logout' %}">Log Out</a></li>
+
+            {% endif %}
+
+        </ul>
+    </div>
+
+    
+
+    <div class="profileWindow">
+        <h2>{{ user.username }}</h2>
+        <ul>
+            <li>Name: {{ user.get_full_name }} </li>
+            <li>Clase: {{ user.userprofile.clase }} </li>
+            <li>Puesto: {{ user.userprofile.role }} </li>
+
+        </ul>
+    </div>
+
+    
+    <div class="reunionsWindow">
+        <h2>Reuniones</h2>
+        <ul>
+            {% for reunion in reunion_list %}
+            {% for attendance in reunion.attendances.all %}
+            {% if attendance.user == request.user %}
+            {% if attendance.asistance %}
+            <li> 
+                <a href="/reunion/{{ reunion.name }} "> {{reunion}} - {{reunion.date}} - will asist </a>
+            </li>
+            {% elif not attendance.asistance %}
+            <li> 
+                <a href="/reunion/{{ reunion.name }} "> {{reunion}} - {{reunion.date}} - won't asist  </a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+
+
+    
+</body>
+</html>

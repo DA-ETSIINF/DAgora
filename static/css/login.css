@@ -1,0 +1,77 @@
+body{
+    background-color: black;
+}
+
+.LogInWindow{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: rgb(20,20,20);
+    color: white;
+    padding:22px;
+    border-radius:15px;
+
+    font-family: "Trebuchet MS";
+
+
+}
+
+.logInBody{
+    height:100%;
+    width:100%;
+    position:relative;
+}
+
+button[type=submit]{
+
+    font-family: "Trebuchet MS";
+
+
+    /*background-color: rgb(25,78,130);
+    color:white;*/
+    background-color:rgb(20,20,20);
+    color:white;
+    border-style: none;
+    border-radius: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height:30px;
+    width:70px;
+}
+
+button[type=submit]:hover{
+    background-color:rgb(80,80,80);
+}
+
+.errorlist.nonfield{
+    color:rgb(201, 4, 4);
+
+    list-style-type: none;
+    padding-left:0px;
+}
+
+.LogInWindow label{
+    margin-left:0px;
+
+}
+
+
+.banner{
+    margin: 0;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+h2{
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}

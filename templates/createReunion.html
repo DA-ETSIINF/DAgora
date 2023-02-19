@@ -1,0 +1,81 @@
+
+{% load static %}
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/createReunion.css' %}"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body> 
+
+
+    <div class="banner">  
+        <img id="logo" src="{% static 'css/LogoDA.png' %}">
+    </div>
+
+    <div class="header">
+        <ul class="headerMenu">
+            <li id="homeButton" class="headerButton">
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li id="homeButton" class="headerButton"> Home</li>
+            
+            {% if user.is_authenticated %}
+
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+
+            {% endif %}
+
+        </ul>
+    </div>
+
+
+    <div class="inputDiv">
+        <form method="post">
+            {% csrf_token %}
+            <li>
+                {{ form.my_name.label_tag }}
+                {{ form.my_name}}
+            </li>
+            <li>
+                {{ form.my_date.label_tag }}
+                {{ form.my_date}}
+            </li>
+            <li>
+                {{ form.my_description.label_tag }}
+                {{ form.my_description}}
+            </li>
+        
+            <div>
+            <button type="button" onclick="window.location='?SearchCriteriaButton=Role'">Role</button>
+            <button type="button" onclick="window.location='?SearchCriteriaButton=Name'">Name</button>
+            <button type="button" onclick="window.location='?SearchCriteriaButton=Class'">Class</button>        
+        </div>
+
+            <li>
+                {{ userSelectionForm.as_p }}
+            </li>
+
+            <input type="submit" value="Submit" name = "reunionname" id="reunionname">
+        </form>
+
+        
+    </div>
+
+    
+    
+
+    
+
+
+
+
+
+
+    
+    <script type="text/javascript" src="{% static 'script.js' %}"></script>
+</body>

@@ -1,0 +1,102 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{reunion.name}}</title>
+    
+    <!-- stylesheet import -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reunionInfo.css' %}"/>
+
+    <!-- JQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Javascript for AJAX requests -->
+    <script src="{% static 'JS/asistanceChangeAjax.js' %}"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    
+    <!-- imagen del logo para la esquina superior derecha-->
+    <div class="banner">  
+        <img id="logo" title="logoDA" src="{% static 'css/LogoDA.png' %}">
+    </div>
+
+    <!-- El Menu superior -->
+    <div class="header">
+        <ul class="headerMenu">
+            <li id="homeButton" class="headerButton">
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li id="homeButton" class="headerButton"> Home</li>
+            
+            {% if user.is_authenticated %}
+
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+
+            {% endif %}
+
+        </ul>
+    </div>
+    <!-- Inicio del cuerpo -->
+    <h1 class="reunionTitle"> {{reunion.name}} </h1>
+
+    <!-- Empieza la lista de usuarios -->
+    <div class="usersList">
+        {% for attendance in attendances %}
+        {% if attendance.user == request.user %}
+
+        
+        <ul class="myUser">
+            {%if attendance.asistance%}
+
+            <li class="userli"> {{attendance.user.get_full_name}} - {{attendance.user.userprofile.clase}} - {{attendance.user.userprofile.role}}  -  will attend</li>
+
+            {%elif not attendance.asistance%} 
+            
+            <li class="userli"> {{attendance.user.get_full_name}} - {{attendance.user.userprofile.clase}} - {{attendance.user.userprofile.role}}  -  wont attend</li>
+
+            {%endif%}
+            <li class="postButtons">
+                <!-- form con los botones para cambiar la asistencia -->
+                <!-- aquí es donde se usa el .js script y el jquery importados anteriormente-->
+                <form method="post" id="attendanceForm" >
+                    {% csrf_token %}
+                    <input type="submit" value="True" name = "trueAsist" id="trueAsist" class="AsistButton">
+                    <input type="submit" value="False" name = "falseAsist" id="falseAsist" class="AsistButton">
+                </form>
+            </li>
+        </ul>
+
+
+        {% elif not attendance.user ==  request.user  %}
+
+        {%if attendance.asistance%}
+
+        <li class="notUser"> {{attendance.user.get_full_name}} - {{attendance.user.userprofile.clase}} - {{attendance.user.userprofile.role}}  -  will attend</li>
+
+        {%elif not attendance.asistance%} 
+        
+        <li class="notUser"> {{attendance.user.get_full_name}} - {{attendance.user.userprofile.clase}} - {{attendance.user.userprofile.role}}  -  wont attend</li>
+
+        
+        {%endif%}
+
+
+
+
+        {% endif %}
+        {% endfor %}
+
+
+
+
+
+    </div>
+</body>
+</html>

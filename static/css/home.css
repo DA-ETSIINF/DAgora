@@ -1,0 +1,42 @@
+
+.profileWindow{
+    margin: 10px;
+    padding:10px;
+    background-color:gray;
+    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+}
+.profileWindow h2{
+    margin: 3px;
+}
+.profileWindow ul li{
+    list-style: none;
+    
+}
+
+
+
+
+.reunionsWindow{
+    margin: 10px;
+    padding:10px;
+    background-color:gray;
+    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+}
+.reunionsWindow h2{
+    margin: 3px;
+}
+
+.reunionsWindow ul li{
+    list-style: none;
+    margin:5px;
+    
+}
+
+.reunionsWindow a:link{
+    color: black;
+    text-decoration: none;
+}
+.reunionsWindow a:visited{
+    color: black;
+    text-decoration: none;
+}
