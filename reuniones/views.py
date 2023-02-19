@@ -9,7 +9,7 @@ from django.http import JsonResponse #JQuery AJAX requests
 
 
 
-
+# Comentario para testear el commit de github
 
 # View para cuando se mira la información de la reunión y se cambia la asistencia del usuario
 def reunionAsistances(request, reunion_name):
