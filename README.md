@@ -1,13 +1,18 @@
 # DAgora
 
-La DAgora es un projecto con la finalidad de crear una forma para la DA de tener un sistema que permita llevar las reuniones / JDs de forma más ordenada
+La DAgora es un proyecto con la finalidad de crear una forma para la DA de tener un sistema que permita llevar las reuniones / JDs de forma más ordenada
 y más sencilla para todos los miembros, con su función principal siendo permitir a los miembros de la DA de poder marcar su asistencia / avisar si van a asistir
 o no a la reunión por adelantado, para así permitir a los organizadores de la reunión tener más facilidad a la hora de organizarla, en vez de tener que mandar varios 
 whatsapps y forms.
 
-El projecto es una web API que utiliza Django, una backend de python, pero también utiliza JQuery de javascript para mejorar la comodidad y efectividad de la pagina.
+El proyecto es una web API que utiliza Django, una backend de python, pero también utiliza JQuery de javascript para mejorar la comodidad y efectividad de la pagina.
 
-El projecto consiste en varias partes:
+Dependencias:
+-
+- Django 4.0
+- Python 3.10 (Probablemente valgan versiones más anteriores)
+
+El proyecto consiste en varias partes:
 - 
 - Un sistema de Login:
 
@@ -56,7 +61,6 @@ objeto el que tiene el atributo de la asistencia y guarda la información sobre 
   
 - Todas las views / El codigo sobre las principales páginas se encuentra en 'reuniones/view'
 
-
 Cosas que faltan:
  -
  - Un sistema para subir archivos a la hora de crear la reunión
@@ -70,6 +74,27 @@ Cosas que faltan:
     - → Implementar atributo de fecha de creación / edición a la clase "Reunion"
     - → Implementar atributo de fecha de visita a la clase "Attendances"
  -  Implementar usuarios UPM oficiales (todavía no se puede hacer)
+
+
+
+Para abrir el server:
+-
+Sin virtual enviroment:
+
+   1. Entrar a la carpeta donde se tenga guardado el código / Entrar a donde esté manage.py 
+   2. python manage.py runserver
+    
+   Esto te enseñará un link con tu IP que podrás usar para acceder al projecto en forma de un liveserver local
+
+Con virtual enviroment:
+
+   1. Asegurarte de que las dependencias correctas están descargadas en el venv
+   3. Ir a la carpeta donde está situada el venv
+   2. correr (nombre de la carpeta del virtual enviroment, ej: venv)/Scripts/activate
+   2.5. Si salta error de permisos usar 'Set-ExecutionPolicy Unrestricted -Scope Process'
+   - Ya has entrado al venv
+   3. Ahora corres los mismos pasos que si no estuviaras utilizando un virtual enviroment
+ 
  
  
   
