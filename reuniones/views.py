@@ -6,10 +6,19 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse #JQuery AJAX requests
 
 
+# View para la página principal
+def main(request):
+    if request.user.is_authenticated == False:
+        return redirect('/accounts/login')
+    user = request.user
+    reunion_list = Reunion.objects.all()
 
+    context = {
+        'user' : user,
+        'reunion_list' : reunion_list,
+        }
 
-
-# Comentario para testear el commit de github
+    return render(request, 'home.html', context)
 
 # View para cuando se mira la información de la reunión y se cambia la asistencia del usuario
 def reunionAsistances(request, reunion_name):

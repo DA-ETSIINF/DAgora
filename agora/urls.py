@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from custom_profiles import views
-from reuniones.views import reunionAsistances, createReunion
+from reuniones.views import reunionAsistances, createReunion, main
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', views.main, name='home'),
+    path('', main, name='home'),
     path('reunion/<str:reunion_name>/', reunionAsistances, name = 'reunionAsistances'),
     path('createReunion/', createReunion, name = 'createReunion')
 ]
