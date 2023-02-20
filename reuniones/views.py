@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Reunion, Attendance
 from custom_profiles.models import UserProfile
-from .forms import ReunionForm, UserSelectionFormName, UserSelectionFormRole, UserSelectionFormClass, ChangeAsistanceForm
+from .forms import ReunionForm, UserSelectionFormName, UserSelectionFormRole, UserSelectionFormClass
 from django.contrib.auth.models import User
 from django.http import JsonResponse #JQuery AJAX requests
 
