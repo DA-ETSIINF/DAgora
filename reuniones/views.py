@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Reunion, Attendance
+from .models import Reunion, Attendance, Document
 from custom_profiles.models import UserProfile
-from .forms import ReunionForm, UserSelectionFormName, UserSelectionFormRole, UserSelectionFormClass
+from .forms import ReunionForm, UserSelectionFormName, UserSelectionFormRole, UserSelectionFormClass, FileUploadForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse #JQuery AJAX requests
 
@@ -64,6 +64,7 @@ def createReunion(request):
         return redirect('/accounts/login')
     
     userForm = UserSelectionFormName()
+    fileForm = FileUploadForm()
         
 
     # APRENDER JQUERY PARA PODER HACER ESTO SIN RECARGAR PAGINA / CAMBIAR URL AL PULSAR BOTONES
@@ -83,6 +84,16 @@ def createReunion(request):
         
     
 
+    if request.method =='POST' and 'fileSubmit' in request.POST:
+        fileForm = FileUploadForm(request.POST, request.FILES)
+        
+        for file in request.FILES.getlist('document'):
+            document = Document(title = file.name, file = file)
+            document.save()
+            print (document)
+
+        
+        
 
 
 
@@ -120,6 +131,7 @@ def createReunion(request):
     context = {
         'form' : ReunionForm(),
         'userSelectionForm': userForm,
+        'fileForm':fileForm,
     }
     
 

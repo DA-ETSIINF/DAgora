@@ -35,6 +35,12 @@
 
 
     <div class="inputDiv">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ fileForm.as_p}}
+
+            <input type="submit" value="Submit Files" name="fileSubmit">
+        </form>
         <form method="post">
             {% csrf_token %}
             <li>

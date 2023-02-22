@@ -77,6 +77,8 @@ class UserSelectionFormClass(forms.Form):
         return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
 
 
+class FileUploadForm(forms.Form):
+    document = forms.FileField(widget = forms.ClearableFileInput(attrs={'multiple': True}))
 
 
 
