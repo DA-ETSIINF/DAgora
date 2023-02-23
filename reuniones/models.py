@@ -2,8 +2,33 @@ from django.db import models
 from django.contrib.auth.models import User
 from django import forms
 
+# for deletion of saved files when deleting a 'Document' class
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import os
+
 
 # Create your models here.
+
+
+
+# Document Upload -> Has to be over Reunion as Reunion utilices it as an attribute
+
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    file = models.FileField(upload_to='documents/')
+
+    def __str__(self):
+        return self.title
+
+# Makes file get deleted when deleting its 'Document' object -> usefull so we can delete files during code instead of having to do it manually
+@receiver(pre_delete, sender=Document)
+def delete_document_file(sender, instance, **kwargs):
+    # Delete the file when the corresponding Document object is deleted
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
+
 
 #Reunion model -> basic attributes of the reunion
 # Time attribute?
@@ -13,9 +38,11 @@ class Reunion(models.Model):
     date = models.DateField()
     attendees = models.ManyToManyField(User, through='Attendance', related_name='meetings')
 
+    documents = models.ManyToManyField(Document, related_name='reunions', blank=True)
+
 
     # ToString() override 
-    # So when i render/print a reunion the name comes up instead of an attribute array
+    # So when I render/print a reunion the name comes up instead of an attribute array -> userSelectionForm
     def __str__(self):
         return self.name
     
@@ -37,14 +64,7 @@ class Attendance(models.Model):
         return self.user.get_full_name()
 
 
-# Document Upload
 
-class Document(models.Model):
-    title = models.CharField(max_length=100)
-    file = models.FileField(upload_to='documents/')
-
-    def __str__(self):
-        return self.title
 
 
 
