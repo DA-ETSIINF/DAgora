@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from custom_profiles import views
-from reuniones.views import reunionAsistances, createReunion, main
+from reuniones.views import reunionAsistances, createReunion, main, file_upload
+
+# for file view during developement
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -25,5 +29,14 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', main, name='home'),
     path('reunion/<str:reunion_name>/', reunionAsistances, name = 'reunionAsistances'),
-    path('createReunion/', createReunion, name = 'createReunion')
+    path('createReunion/', createReunion, name = 'createReunion'),
+
+    # Testviews for file uploading
+    # Add one <dir>/upload/ path for every dir that uses the upload system!
+    path('upload/', file_upload),
+    path('createReunion/upload/', file_upload),
 ]
+
+# Enables the viewing of uploaded documents by introducing the url --> only for developement
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

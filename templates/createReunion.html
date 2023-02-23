@@ -1,5 +1,6 @@
-
+{% extends 'base.html' %}
 {% load static %}
+
 
 
 
@@ -10,6 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
+{% block content %}
 <body> 
 
 
@@ -35,12 +38,22 @@
 
 
     <div class="inputDiv">
-        <form method="post" enctype="multipart/form-data">
+        <!-- <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ fileForm.as_p}}
+            {{ fileForm.as_p}} 
 
             <input type="submit" value="Submit Files" name="fileSubmit">
-        </form>
+        </form> -->
+
+
+        <form enctype='multipart/form-data' action="upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
+            {% csrf_token %}
+            <div class="fallback">
+              <input name="file" type="file" multiple />
+            </div>
+        </form> 
+
+
         <form method="post">
             {% csrf_token %}
             <li>
@@ -72,16 +85,7 @@
         
     </div>
 
-    
-    
 
-    
-
-
-
-
-
-
-    
-    <script type="text/javascript" src="{% static 'script.js' %}"></script>
 </body>
+
+{%endblock%}

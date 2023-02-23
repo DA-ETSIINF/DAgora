@@ -64,15 +64,16 @@ def createReunion(request):
         return redirect('/accounts/login')
     
     userForm = UserSelectionFormName()
-    fileForm = FileUploadForm()
+    #fileForm = FileUploadForm()  -> Replaced by Dropzone
         
 
-    # APRENDER JQUERY PARA PODER HACER ESTO SIN RECARGAR PAGINA / CAMBIAR URL AL PULSAR BOTONES
-    # Alternativamente --> Poner codigo de javascript para que no se borre la informacion en el form al recargar pagina
     if request.method == 'GET':
-        searchCriteria = request.GET.get('SearchCriteriaButton')
-        print(searchCriteria)
 
+        #reset session so it can be used again without re-adding the same documents
+        request.session['documents'] = []
+
+        # Searchcriteria Buttons -> AJAX?
+        searchCriteria = request.GET.get('SearchCriteriaButton')
         if searchCriteria == 'Name':
             userForm = UserSelectionFormName
 
@@ -81,20 +82,6 @@ def createReunion(request):
         
         elif searchCriteria == 'Class':
             userForm = UserSelectionFormClass
-        
-    
-
-    if request.method =='POST' and 'fileSubmit' in request.POST:
-        fileForm = FileUploadForm(request.POST, request.FILES)
-        
-        for file in request.FILES.getlist('document'):
-            document = Document(title = file.name, file = file)
-            document.save()
-            print (document)
-
-        
-        
-
 
 
     if request.method == 'POST' and 'reunionname' in request.POST:
@@ -120,6 +107,11 @@ def createReunion(request):
             else:
                 userForm = UserSelectionFormName()
             
+
+            # add documents to the reunion documents attribute
+            for document_id in request.session['documents']:
+                Reunion.objects.get(name=input_box_name).documents.add(Document.objects.get(id = document_id))
+            
             # redirect to the summary page of the new reunion
             return redirect('../reunion/' + input_box_name)
 
@@ -131,9 +123,21 @@ def createReunion(request):
     context = {
         'form' : ReunionForm(),
         'userSelectionForm': userForm,
-        'fileForm':fileForm,
     }
     
 
     # The render method -> sends info to browser in order to create site
     return render(request, 'createReunion.html', context)  
+
+
+
+# Create Document instances with files uploaded via Dropzone box
+def file_upload(request):
+    if request.method == 'POST':
+        my_file=request.FILES.get('file')
+        document = Document.objects.create(title=my_file.name, file=my_file)
+        # Save ID to session so it can then be used in the corresponding view
+        request.session.setdefault('documents',[]).append(document.id)
+        request.session.save()
+        print(request.session['documents'])
+    return JsonResponse({'post':'fasle'})

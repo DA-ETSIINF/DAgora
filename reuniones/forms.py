@@ -77,6 +77,7 @@ class UserSelectionFormClass(forms.Form):
         return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
 
 
+# Not used -> Changed to Dropzone in order to enable draging files to upload
 class FileUploadForm(forms.Form):
     document = forms.FileField(widget = forms.ClearableFileInput(attrs={'multiple': True}))
 
