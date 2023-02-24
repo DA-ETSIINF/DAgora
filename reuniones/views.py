@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Reunion, Attendance, Document
 from custom_profiles.models import UserProfile
-from .forms import ReunionForm, UserSelectionFormName, UserSelectionFormRole, UserSelectionFormClass, FileUploadForm
+from .forms import ReunionForm, UserSelectionFormName, FileUploadForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse #JQuery AJAX requests
 
@@ -84,7 +84,13 @@ def createReunion(request):
             userForm = UserSelectionFormClass
 
 
+    if request.method == 'POST':
+        print(request.POST.get('usedForm'))
+        
+
     if request.method == 'POST' and 'reunionname' in request.POST:
+        print(request.POST.get('usedForm'))
+        
 
         # Access the input box data
 
@@ -113,7 +119,7 @@ def createReunion(request):
                 Reunion.objects.get(name=input_box_name).documents.add(Document.objects.get(id = document_id))
             
             # redirect to the summary page of the new reunion
-            return redirect('../reunion/' + input_box_name)
+            #return redirect('../reunion/' + input_box_name)
 
         else:
             reunionForm = ReunionForm()

@@ -2,16 +2,6 @@
 {% load static %}
 
 
-
-
-<head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/createReunion.css' %}"/>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
 {% block content %}
 <body> 
 
@@ -25,7 +15,9 @@
             <li id="homeButton" class="headerButton">
                 <a href="{% url 'home' %}">Home</a>
             </li>
-            <li id="homeButton" class="headerButton"> Home</li>
+            <li id="homeButton" class="headerButton">
+                <a href="{% url 'createReunion' %}">Create Reunion</a>
+            </li>
             
             {% if user.is_authenticated %}
 
@@ -54,7 +46,7 @@
         </form> 
 
 
-        <form method="post">
+        <form method="post" id="reunionForm">
             {% csrf_token %}
             <li>
                 {{ form.my_name.label_tag }}
@@ -70,14 +62,18 @@
             </li>
         
             <div>
-            <button type="button" onclick="window.location='?SearchCriteriaButton=Role'">Role</button>
-            <button type="button" onclick="window.location='?SearchCriteriaButton=Name'">Name</button>
-            <button type="button" onclick="window.location='?SearchCriteriaButton=Class'">Class</button>        
-        </div>
+                <label> Order By: </label>
+                <div id="orderByButtons">
+                    <!-- Put buttons on different lines only if you want there to be space between them -> Not be a line anymore -->
+                    <button type="button" id="RoleButton">Role</button><button type="button" id="NameButton">Name</button><button type="button" id="ClassButton">Class</button>    
+                </div>    
+            </div>
 
-            <li>
-                {{ userSelectionForm.as_p }}
-            </li>
+            <div id="userSelectionForm">
+                <li>
+                    {{ userSelectionForm.as_p }}
+                </li>
+            </div>
 
             <input type="submit" value="Submit" name = "reunionname" id="reunionname">
         </form>

@@ -21,7 +21,9 @@
             <li class="headerButton">
                 <a href="{% url 'home' %}">Home</a>
             </li>
-            <li class="headerButton"> Home</li>
+            <li id="homeButton" class="headerButton">
+                <a href="{% url 'createReunion' %}">Create Reunion</a>
+            </li>
             
             {% if user.is_authenticated %}
 

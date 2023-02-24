@@ -6,3 +6,17 @@
     list-style: none;
     margin:15px;
 }
+
+#orderByButtons{
+    padding: 0px;
+}
+#orderByButtons button{
+    padding-right:15px;
+    padding-left: 15px;
+    background-color: gray;
+    border-style: none;
+    margin:0px;
+}
+#orderByButtons button:hover{
+    background-color: rgb(200,200,200);
+}

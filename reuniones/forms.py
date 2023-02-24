@@ -13,6 +13,7 @@ class ReunionForm(forms.Form):
 
 
 # to add a searchbar to the UserSelectionForm, which i have to make work on javascript. I dont know how tho, as i think i need JQueery, so i'll leave it here for the future maybe. People can use ctrl + G to search anyways...
+# Usar si se quiere implementar barra de busqueda -> actualmente no en uso
 class SearchableCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     def __init__(self, search_field=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,39 +43,9 @@ class UserSelectionFormName(forms.Form):
 
     #Esto sirve para que a la hora de imprimir los users en el multiplechoicefield que ponga el 'perfil' del usuario y no su nombre de usuario
     def label_from_instance(self, obj):
-        #str() para que siga funcionando todo si nos olvidamos de poner clase, rol o nombre + apellido a algun perfil
+        #str() para que siga funcionando todo si nos olvidamos de poner clase, rol o nombre + apellido a algun perfil -> pondría 'None'
         return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
 
-
-# Para que este ordenado la form por role
-class UserSelectionFormRole(forms.Form):
-    users = forms.ModelMultipleChoiceField(
-        queryset=User.objects.all().order_by('userprofile__role'),
-        widget = forms.CheckboxSelectMultiple)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['users'].label_from_instance = self.label_from_instance
-
-    #Esto sirve para que a la hora de imprimir los users en el multiplechoicefield que ponga el 'perfil' del usuario y no su nombre de usuario
-    def label_from_instance(self, obj):
-        #str() para que siga funcionando todo si nos olvidamos de poner clase, rol o nombre + apellido a algun perfil
-        return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
-
-# Para que este ordenado la form por clase/curso
-class UserSelectionFormClass(forms.Form):
-    users = forms.ModelMultipleChoiceField(
-        queryset=User.objects.all().order_by('userprofile__clase'), # Problema es que el orden se fija en el primer caracter, por lo cual si hay mas de dos digitos 10 va antes que 2 --> solo funciona si hay menos de 10 cursos
-        widget = forms.CheckboxSelectMultiple)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['users'].label_from_instance = self.label_from_instance
-
-    #Esto sirve para que a la hora de imprimir los users en el multiplechoicefield que ponga el 'perfil' del usuario y no su nombre de usuario
-    def label_from_instance(self, obj):
-        #str() para que siga funcionando todo si nos olvidamos de poner clase, rol o nombre + apellido a algun perfil
-        return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
 
 
 # Not used -> Changed to Dropzone in order to enable draging files to upload

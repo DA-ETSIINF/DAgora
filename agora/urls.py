@@ -31,7 +31,7 @@ urlpatterns = [
     path('reunion/<str:reunion_name>/', reunionAsistances, name = 'reunionAsistances'),
     path('createReunion/', createReunion, name = 'createReunion'),
 
-    # Testviews for file uploading
+    # Testviews for file uploading -> This urls enable the use of the file_upload view def so we can store file data using dropzone
     # Add one <dir>/upload/ path for every dir that uses the upload system!
     path('upload/', file_upload),
     path('createReunion/upload/', file_upload),
