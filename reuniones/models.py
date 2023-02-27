@@ -30,6 +30,23 @@ def delete_document_file(sender, instance, **kwargs):
             os.remove(instance.file.path)
 
 
+class TempDocument(models.Model):
+    title = models.CharField(max_length=100)
+    file = models.FileField(upload_to='temp/documents/')
+    creation_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+    
+@receiver(pre_delete, sender=TempDocument)
+def delete_temp_document_file(sender, instance, **kwargs):
+    # Delete the file when the corresponding TempDocument object is deleted
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
+
+
+
 #Reunion model -> basic attributes of the reunion
 # Time attribute?
 class Reunion(models.Model):

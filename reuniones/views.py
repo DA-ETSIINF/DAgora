@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Reunion, Attendance, Document
+from .models import Reunion, Attendance, Document, TempDocument
 from custom_profiles.models import UserProfile
 from .forms import ReunionForm, UserSelectionFormName, FileUploadForm
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.http import JsonResponse #JQuery AJAX requests
 
 
@@ -72,16 +73,6 @@ def createReunion(request):
         #reset session so it can be used again without re-adding the same documents
         request.session['documents'] = []
 
-        # Searchcriteria Buttons -> AJAX?
-        searchCriteria = request.GET.get('SearchCriteriaButton')
-        if searchCriteria == 'Name':
-            userForm = UserSelectionFormName
-
-        elif searchCriteria == 'Role':
-            userForm = UserSelectionFormRole
-        
-        elif searchCriteria == 'Class':
-            userForm = UserSelectionFormClass
 
 
     if request.method == 'POST':
@@ -116,7 +107,9 @@ def createReunion(request):
 
             # add documents to the reunion documents attribute
             for document_id in request.session['documents']:
-                Reunion.objects.get(name=input_box_name).documents.add(Document.objects.get(id = document_id))
+                tempDocu = TempDocument.objects.get(id = document_id)
+                document = Document.objects.create(title = tempDocu.title, file = tempDocu.file)
+                Reunion.objects.get(name=input_box_name).documents.add(document)
             
             # redirect to the summary page of the new reunion
             #return redirect('../reunion/' + input_box_name)
@@ -141,7 +134,7 @@ def createReunion(request):
 def file_upload(request):
     if request.method == 'POST':
         my_file=request.FILES.get('file')
-        document = Document.objects.create(title=my_file.name, file=my_file)
+        document = TempDocument.objects.create(title=my_file.name, file=my_file, creation_date = timezone.now())
         # Save ID to session so it can then be used in the corresponding view
         request.session.setdefault('documents',[]).append(document.id)
         request.session.save()
