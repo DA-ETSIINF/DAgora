@@ -1,50 +1,10 @@
 
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{{reunion.name}}</title>
-    
-    <!-- stylesheet import -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reunionInfo.css' %}"/>
+{% extends 'base.html' %}
+{% block content %}
 
-    <!-- JQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Javascript for AJAX requests -->
-    <script src="{% static 'JS/asistanceChangeAjax.js' %}"></script>
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-</head>
 <body>
     
-    <!-- imagen del logo para la esquina superior derecha-->
-    <div class="banner">  
-        <img id="logo" title="logoDA" src="{% static 'css/LogoDA.png' %}">
-    </div>
 
-    <!-- El Menu superior -->
-    <div class="header">
-        <ul class="headerMenu">
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'home' %}">Home</a>
-            </li>
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'createReunion' %}">Create Reunion</a>
-            </li>
-            
-            {% if user.is_authenticated %}
-
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-
-            {% endif %}
-
-        </ul>
-    </div>
     <!-- Inicio del cuerpo -->
     <h1 class="reunionTitle"> {{reunion.name}} </h1>
 
@@ -96,9 +56,7 @@
         {% endfor %}
 
 
-
-
-
     </div>
 </body>
 </html>
+{%endblock%}

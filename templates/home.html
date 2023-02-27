@@ -1,7 +1,6 @@
-{% load static %}
+{% extends 'base.html' %}
+{% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,29 +11,6 @@
 
 <body>
 
-    <div class="banner">  
-        <img id="logo" src="{% static 'css/LogoDA.png' %}">
-    </div>
-
-    <div class="header">
-        <ul class="headerMenu">
-            <li class="headerButton">
-                <a href="{% url 'home' %}">Home</a>
-            </li>
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'createReunion' %}">Create Reunion</a>
-            </li>
-            
-            {% if user.is_authenticated %}
-
-            <li class="headerButton"><a href="{% url 'logout' %}">Log Out</a></li>
-
-            {% endif %}
-
-        </ul>
-    </div>
-
-    
 
     <div class="profileWindow">
         <h2>{{ user.username }}</h2>
@@ -66,12 +42,8 @@
             {% endfor %}
             {% endfor %}
         </ul>
-    </div>
-
-
-
-
-
-    
+    </div> 
 </body>
 </html>
+
+{%endblock%}

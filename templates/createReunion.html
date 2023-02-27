@@ -1,32 +1,8 @@
 {% extends 'base.html' %}
-{% load static %}
-
-
 {% block content %}
 <body> 
 
 
-    <div class="banner">  
-        <img id="logo" src="{% static 'css/LogoDA.png' %}">
-    </div>
-
-    <div class="header">
-        <ul class="headerMenu">
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'home' %}">Home</a>
-            </li>
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'createReunion' %}">Create Reunion</a>
-            </li>
-            
-            {% if user.is_authenticated %}
-
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-
-            {% endif %}
-
-        </ul>
-    </div>
 
 
     <div class="inputDiv">

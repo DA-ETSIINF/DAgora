@@ -20,6 +20,8 @@
     <!-- Non Dropzone imports -> my own imports that aren't main.js or style.css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/createReunion.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reunionInfo.css' %}"/>
 
 
     
@@ -28,6 +30,28 @@
     <title>DAgora</title>
   </head>
   <body>
+      
+    <div class="banner">  
+      <img id="logo" src="{% static 'css/LogoDA.png' %}">
+  </div>
+
+  <div class="header">
+      <ul class="headerMenu">
+          <li id="homeButton" class="headerButton">
+              <a href="{% url 'home' %}">Home</a>
+          </li>
+          <li id="homeButton" class="headerButton">
+              <a href="{% url 'createReunion' %}">Create Reunion</a>
+          </li>
+          
+          {% if user.is_authenticated %}
+
+          <li class="headerButton"><a href="{% url 'logout' %}">Log Out</a></li>
+
+          {% endif %}
+
+      </ul>
+  </div>
     <div class="container mt-3">
         {% block content %}
         {% endblock content %}
