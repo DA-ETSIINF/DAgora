@@ -9,6 +9,20 @@
     <h1 class="reunionTitle"> {{reunion.name}} </h1>
 
     <!-- Empieza la lista de usuarios -->
+    <div id="reunionInfo">
+        <ul>
+            <li>{{reunion.name}}</li>
+            <li>{{reunion.date}}</li>
+            {%for document in documents%}
+            <ul id="documents">
+                <li>
+                    <a href="../../media/{{document.file}}">{{document.title}}</a>
+                </li>
+            </ul>
+            {%endfor%}
+        </ul>
+    </div>
+
     <div class="usersList">
         {% for attendance in attendances %}
         {% if attendance.user == request.user %}

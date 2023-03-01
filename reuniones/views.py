@@ -35,6 +35,8 @@ def reunionAsistances(request, reunion_name):
 
 
     reunion = Reunion.objects.get(name = reunion_name)
+    documents = Document.objects.filter(reunions = reunion)
+    print(documents)
 
 
     # el order.by es para que no se coloquen en orden de creación, sino en orden alfabético
@@ -56,6 +58,7 @@ def reunionAsistances(request, reunion_name):
     context = {
         'reunion' : reunion,
         'attendances':attendances,
+        'documents':documents,
     }
 
     return render(request, 'reunion.html', context)
@@ -121,18 +124,20 @@ def createReunion(request):
                 
                 new_path = os.path.join(settings.MEDIA_ROOT,file_name)
 
-                shutil.copy2(initial_path, new_path)
+                shutil.copy(initial_path, new_path)
                 
                 # Open duplicated file in media/documents/ and create a new Document instance with the file linked to it
-                with open(new_path, 'rb') as f:
+                with open(initial_path, 'rb') as f:
                     file_obj = File(f)
 
                     new_document = Document()
 
-                    new_document.file.save(os.path.basename(new_path), file_obj)
                     new_document.title = tempDocu.title # Same title as the old document
+                    new_document.file.save(os.path.basename(new_path), file_obj)
+                    os.remove(new_path)
+                    
 
-                    new_document.save()
+
 
                 # Add document to the reunion instance
                 Reunion.objects.get(name=input_box_name).documents.add(new_document)
