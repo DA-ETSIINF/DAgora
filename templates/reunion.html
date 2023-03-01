@@ -1,6 +1,8 @@
 
 {% extends 'base.html' %}
+{%load static%}
 {% block content %}
+
 
 <body>
     
@@ -11,15 +13,22 @@
     <!-- Empieza la lista de usuarios -->
     <div id="reunionInfo">
         <ul>
-            <li>{{reunion.name}}</li>
-            <li>{{reunion.date}}</li>
-            {%for document in documents%}
+            <li>Date: {{reunion.date}}</li>
+            <li> Description:</li>
+            <li class="description">{{reunion.description}}</li>
+            {%if documents%}
+            <li> Documents: </li>
             <ul id="documents">
-                <li>
-                    <a href="../../media/{{document.file}}">{{document.title}}</a>
-                </li>
-            </ul>
-            {%endfor%}
+                {%for document in documents%}
+                    <li>
+                        <a href="../../media/{{document.file}}"> 
+                            <img id="document_download_img" src="{% static 'css/download_document_icon.png' %}">
+                            {{document.title}}
+                        </a>
+                    </li>
+                {%endfor%}
+            {%endif%}
+             </ul>
         </ul>
     </div>
 
