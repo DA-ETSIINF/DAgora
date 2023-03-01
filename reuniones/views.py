@@ -3,8 +3,13 @@ from .models import Reunion, Attendance, Document, TempDocument
 from custom_profiles.models import UserProfile
 from .forms import ReunionForm, UserSelectionFormName, FileUploadForm
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils import timezone
 from django.http import JsonResponse #JQuery AJAX requests
+from pathlib import Path
+from django.core.files import File
+import os
+import shutil
 
 
 # View para la página principal
@@ -75,12 +80,9 @@ def createReunion(request):
 
 
 
-    if request.method == 'POST':
-        print(request.POST.get('usedForm'))
         
 
     if request.method == 'POST' and 'reunionname' in request.POST:
-        print(request.POST.get('usedForm'))
         
 
         # Access the input box data
@@ -105,14 +107,38 @@ def createReunion(request):
                 userForm = UserSelectionFormName()
             
 
-            # add documents to the reunion documents attribute
             for document_id in request.session['documents']:
+
+                # Get tempDocument with the file we want to add to the reunion
                 tempDocu = TempDocument.objects.get(id = document_id)
-                document = Document.objects.create(title = tempDocu.title, file = tempDocu.file)
-                Reunion.objects.get(name=input_box_name).documents.add(document)
+                
+                # Duplicate the file of the tempDoc to media/documents (instead of temp)
+                # We need two separate files in order for there to not be any problems between the tempDocument and Document models
+
+                initial_path = tempDocu.file.path
+
+                file_name="documents/" + tempDocu.file.name[len("temp/documents/"):]
+                
+                new_path = os.path.join(settings.MEDIA_ROOT,file_name)
+
+                shutil.copy2(initial_path, new_path)
+                
+                # Open duplicated file in media/documents/ and create a new Document instance with the file linked to it
+                with open(new_path, 'rb') as f:
+                    file_obj = File(f)
+
+                    new_document = Document()
+
+                    new_document.file.save(os.path.basename(new_path), file_obj)
+                    new_document.title = tempDocu.title # Same title as the old document
+
+                    new_document.save()
+
+                # Add document to the reunion instance
+                Reunion.objects.get(name=input_box_name).documents.add(new_document)
             
             # redirect to the summary page of the new reunion
-            #return redirect('../reunion/' + input_box_name)
+            return redirect('../reunion/' + input_box_name)
 
         else:
             reunionForm = ReunionForm()

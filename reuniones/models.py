@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
+from django.utils import timezone
 
 # for deletion of saved files when deleting a 'Document' class
 from django.db.models.signals import pre_delete
@@ -16,7 +17,7 @@ import os
 
 class Document(models.Model):
     title = models.CharField(max_length=100)
-    file = models.FileField(upload_to='documents/')
+    file = models.FileField(upload_to='documents/', max_length = 750)
 
     def __str__(self):
         return self.title
@@ -32,11 +33,21 @@ def delete_document_file(sender, instance, **kwargs):
 
 class TempDocument(models.Model):
     title = models.CharField(max_length=100)
-    file = models.FileField(upload_to='temp/documents/')
+    file = models.FileField(upload_to='temp/documents/', max_length = 750)
     creation_date = models.DateTimeField()
 
     def __str__(self):
         return self.title
+    
+
+    #Ahora hay que ver cuando cuando correrlo 
+    #Run function everytime someone visits home? Maybe not the most efficient way but should work
+    def delete_odl_docs():
+        limit = timezone.now() - timezone.timedelta(days=1)
+        old_docs = TempDocument.objects.filter(creation_date__lt=limit)
+        old_docs.delete()
+
+
     
 @receiver(pre_delete, sender=TempDocument)
 def delete_temp_document_file(sender, instance, **kwargs):
