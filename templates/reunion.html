@@ -11,6 +11,16 @@
     <h1 class="reunionTitle"> {{reunion.name}} </h1>
 
     <!-- Empieza la lista de usuarios -->
+
+    {%if editPerms%}
+    <div id="reunionEdition">
+        <button id="EditMode">EDIT</button>
+        <a href="edit">Edit</a>
+    </div>
+    {%endif%}
+
+
+
     <div id="reunionInfo">
         <ul>
             <li>Date: {{reunion.date}}</li>

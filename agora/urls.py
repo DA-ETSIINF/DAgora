@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from custom_profiles import views
-from reuniones.views import reunionAsistances, createReunion, main, file_upload
+from reuniones.views import reunionAsistances, createReunion, main, file_upload, reunionEdit
 
 # for file view during developement
 from django.conf import settings
@@ -29,6 +29,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', main, name='home'),
     path('reunion/<str:reunion_name>/', reunionAsistances, name = 'reunionAsistances'),
+    path('reunion/<str:reunion_name>/edit/', reunionEdit, name = 'reunionEdit'),
     path('createReunion/', createReunion, name = 'createReunion'),
 
     # Testviews for file uploading -> This urls enable the use of the file_upload view def so we can store file data using dropzone

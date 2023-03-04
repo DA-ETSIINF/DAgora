@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+
+
+<body>
+    
+
+    <!-- Inicio del cuerpo -->
+    <h1 class="editWarning"> MODO EDICION </h1>
+
+    <!-- Empieza la lista de usuarios -->
+
+    <div id="reunionInfo">
+        <ul>
+            <li>Name: {{reunion.name}}</li>
+            <li>Date: {{reunion.date}}</li>
+            <li> Description:</li>
+            <li class="description">{{reunion.description}}</li>
+            {%if documents%}
+            <li> Documents: </li>
+            <ul id="documents">
+                {%for document in documents%}
+                    <li>
+                        <a href="../../../media/{{document.file}}"> 
+                            <img id="document_download_img" src="{% static 'css/download_document_icon.png' %}">
+                            {{document.title}}
+                        </a>
+                    </li>
+                {%endfor%}
+            {%endif%}
+             </ul>
+        </ul>
+    </div>
+
+    <div> 
+        <form method="post" id="editionForm">
+            {% csrf_token %}
+            {{reunionForm.as_p}}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    </div>
+</body>
+</html>
+{%endblock%}

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{%load static%}
+
 {% block content %}
 <body> 
 
@@ -6,12 +8,6 @@
 
 
     <div class="inputDiv">
-        <!-- <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ fileForm.as_p}} 
-
-            <input type="submit" value="Submit Files" name="fileSubmit">
-        </form> -->
 
 
         <form enctype='multipart/form-data' action="upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">

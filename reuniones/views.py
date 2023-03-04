@@ -36,7 +36,7 @@ def reunionAsistances(request, reunion_name):
 
     reunion = Reunion.objects.get(name = reunion_name)
     documents = Document.objects.filter(reunions = reunion)
-    print(documents)
+    editPerms = reunion.creator == request.user
 
 
     # el order.by es para que no se coloquen en orden de creación, sino en orden alfabético
@@ -55,13 +55,38 @@ def reunionAsistances(request, reunion_name):
         attendance.save()
 
 
+
+
     context = {
         'reunion' : reunion,
         'attendances':attendances,
         'documents':documents,
+        'editPerms':editPerms,
     }
 
+
     return render(request, 'reunion.html', context)
+
+def reunionEdit(request, reunion_name):
+    reunion = Reunion.objects.get(name = reunion_name)
+    documents = Document.objects.filter(reunions = reunion)
+    reunionForm = ReunionForm(initial={'my_name':reunion.name, 'my_date':reunion.date, 'my_description':reunion.description})
+
+    if request.method == 'POST':
+        reunionForm = ReunionForm(request.POST)
+        print(reunionForm)
+        if reunionForm.is_valid():
+            print('IS VALID')
+            reunion.name = reunionForm.cleaned_data['my_name']
+            reunion.date = reunionForm.cleaned_data['my_date']
+            reunion.description = reunionForm.cleaned_data['my_description']
+
+    context = {
+        'reunion':reunion,
+        'documents':documents,
+        'reunionForm':reunionForm,
+    }
+    return render(request, 'reunionEdition.html', context)
 
 
 
@@ -95,7 +120,7 @@ def createReunion(request):
             input_box_name = reunionForm.cleaned_data['my_name']
             input_box_date = reunionForm.cleaned_data['my_date']
             input_box_description = reunionForm.cleaned_data['my_description']
-            Reunion.objects.create(name = input_box_name , date = input_box_date, description = input_box_description)
+            Reunion.objects.create(name = input_box_name , date = input_box_date, description = input_box_description, creator=request.user)
 
             # creates reunion first, then adds members 
             # -> thats because to add members i need to create Attendance objects, so its not really an attribute
@@ -106,6 +131,9 @@ def createReunion(request):
                 selected_users = userForm.cleaned_data['users']
                 for user in selected_users:
                     Attendance.objects.create(user=user, reunion = Reunion.objects.get(name=input_box_name))
+                # Puts the reunion creator in the reunion if he didnt select himself
+                if not Attendance.objects.filter(user = request.user, reunion = Reunion.objects.get(name=input_box_name)):
+                    Attendance.objects.create(user=request.user, reunion = Reunion.objects.get(name=input_box_name))
             else:
                 userForm = UserSelectionFormName()
             
@@ -147,6 +175,9 @@ def createReunion(request):
 
         else:
             reunionForm = ReunionForm()
+        
+
+
 
 
     # passing context to the html page for use

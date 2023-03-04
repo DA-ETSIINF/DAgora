@@ -68,6 +68,8 @@ class Reunion(models.Model):
 
     documents = models.ManyToManyField(Document, related_name='reunions', blank=True)
 
+    creator = models.ForeignKey(User, blank=True, default='', on_delete=models.CASCADE, related_name='createdReunions')
+
 
     # ToString() override 
     # So when I render/print a reunion the name comes up instead of an attribute array -> userSelectionForm
