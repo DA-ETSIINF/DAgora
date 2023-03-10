@@ -7,7 +7,7 @@
     
 
     <!-- Inicio del cuerpo -->
-    <h1 class="editWarning"> MODO EDICION </h1>
+    <h1 id="editWarning"> MODO EDICION  <a id="reunionEdition" href="../">Return</a> </h1>
 
     <!-- Empieza la lista de usuarios -->
 
@@ -37,7 +37,7 @@
         <form method="post" id="editionForm">
             {% csrf_token %}
             {{reunionForm.as_p}}
-            <input type="submit" value="Submit" name="submitButton">
+            <input type="submit" value="Submit" name="submitButton" id="submitButton">
         </form>
     </div>
     

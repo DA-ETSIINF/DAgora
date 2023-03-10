@@ -8,15 +8,16 @@
     
 
     <!-- Inicio del cuerpo -->
+    {%if not editPerms%}
     <h1 class="reunionTitle"> {{reunion.name}} </h1>
+
+    {%elif editPerms%}
+    <h1 class="reunionTitle"> {{reunion.name}} <a id="reunionEdition" href="edit">Edit</a> </h1>
+
+    {%endif%}
 
     <!-- Empieza la lista de usuarios -->
 
-    {%if editPerms%}
-    <div id="reunionEdition">
-        <a href="edit">Edit</a>
-    </div>
-    {%endif%}
 
 
 

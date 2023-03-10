@@ -2,13 +2,13 @@
     list-style: none;
 
 
-    margin-left: 10px;
-    margin-right: 10px;
+    
 
     padding-top:17px;
     padding-bottom:17px;
-    padding-left: 5px;
-    padding-right: 5px;
+
+
+
     
     font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
     
@@ -57,3 +57,17 @@
     border-color:rgb(220,220,220);
     padding:15px;
 }
+
+#submitButton{
+    color:black!important;
+    background-color:darkgray;
+    
+}
+
+#submitButton:hover{
+    background-color:lightgray;
+    color:gray!important;
+
+}
+
+
