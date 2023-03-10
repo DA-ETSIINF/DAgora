@@ -46,7 +46,8 @@ def reunionAsistances(request, reunion_name):
 
 
     # Utiliza un AJAX request
-    if request.method == 'POST':
+    # el and request.headers.get('x-requested-with') == 'XMLHttpRequest' mira si la request es ajax o no -> Para evitar errores
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         asistValue = request.POST.get('asistValue') == 'True' # Transforma el valor del boton en un boolean
 
         # Cambiar el valor de la instancia de la attendance y guarda los cambios en la base de datos
@@ -70,16 +71,26 @@ def reunionAsistances(request, reunion_name):
 def reunionEdit(request, reunion_name):
     reunion = Reunion.objects.get(name = reunion_name)
     documents = Document.objects.filter(reunions = reunion)
+    # reunionForm is pre-filled with old info so its easier to edit
     reunionForm = ReunionForm(initial={'my_name':reunion.name, 'my_date':reunion.date, 'my_description':reunion.description})
 
-    if request.method == 'POST':
+    
+    # Submit ReunionForm with new values -> edition of basic Info
+    if request.method == 'POST' and 'submitButton' in request.POST:
         reunionForm = ReunionForm(request.POST)
-        print(reunionForm)
         if reunionForm.is_valid():
-            print('IS VALID')
             reunion.name = reunionForm.cleaned_data['my_name']
             reunion.date = reunionForm.cleaned_data['my_date']
             reunion.description = reunionForm.cleaned_data['my_description']
+            reunion.save()
+            return redirect ('../../' + reunion.name + '/edit') 
+    
+    # Delete document buttons -> Uses AJAX
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        docName = request.POST['documentName'].strip()
+        document = Document.objects.filter(title = docName)
+        document.delete()
+        print(docName)
 
     context = {
         'reunion':reunion,
@@ -102,7 +113,6 @@ def createReunion(request):
         
 
     if request.method == 'GET':
-
         #reset session so it can be used again without re-adding the same documents
         request.session['documents'] = []
 

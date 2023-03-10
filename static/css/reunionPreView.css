@@ -18,6 +18,10 @@
     margin:5px;
 }
 
+#reunionInfo ul li.description{
+    white-space: pre-wrap;
+}
+
 #reunionInfo a{
     color: black;
     text-decoration: none;
@@ -50,3 +54,48 @@
 .description{
     margin-left: 50px !important;
 }
+
+
+#documentEdition{
+    margin:10px;
+    margin-left: 30px;
+    padding:15px;
+
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-color:rgb(220,220,220);
+    border-width:2px;
+}
+
+#documentEdition li{
+    list-style: none;
+    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 22px;
+}
+
+#documentEdition li a{
+    color:black;
+    text-decoration: none;
+}
+#documentEdition li a:visited{
+    color:black;
+    text-decoration: none;
+}
+
+#documentEdition li button{
+    background-color:lightgray;
+    margin-left: 30px;
+    border-style: none;
+    height:30px;
+    width:50px;
+    border-radius:7px;    
+}
+#documentEdition li button:hover{
+    background-color:gray;
+}
+#documentEdition li button:active{
+    background-color:lightgray;
+
+}
+
+

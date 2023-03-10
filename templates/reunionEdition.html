@@ -37,11 +37,25 @@
         <form method="post" id="editionForm">
             {% csrf_token %}
             {{reunionForm.as_p}}
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" name="submitButton">
         </form>
     </div>
-
+    
+    <div id="documentEdition">
+    {% if not documents %}
+        <li>There are no documents linked to this Reunion</li>
+    {%endif%}
+    {%for document in documents%}
+        <li>
+            <a href="../../../media/{{document.file}}"> 
+                <img id="document_download_img" src="{% static 'css/download_document_icon.png' %}">
+                {{document.title}}
+            </a>
+            <button class="documentDelButton" id="documentDelButton"> Delete </button>
+        </li>        
+    {%endfor%}
     </div>
+    
 </body>
 </html>
 {%endblock%}
