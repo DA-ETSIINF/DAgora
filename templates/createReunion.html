@@ -10,7 +10,7 @@
     <div class="inputDiv">
 
 
-        <form enctype='multipart/form-data' action="upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
+        <form enctype='multipart/form-data' action="/upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
             {% csrf_token %}
             <div class="fallback">
               <input name="file" type="file" multiple />

@@ -11,27 +11,6 @@
 
     <!-- Empieza la lista de usuarios -->
 
-    <div id="reunionInfo">
-        <ul>
-            <li>Name: {{reunion.name}}</li>
-            <li>Date: {{reunion.date}}</li>
-            <li> Description:</li>
-            <li class="description">{{reunion.description}}</li>
-            {%if documents%}
-            <li> Documents: </li>
-            <ul id="documents">
-                {%for document in documents%}
-                    <li>
-                        <a href="../../../media/{{document.file}}"> 
-                            <img id="document_download_img" src="{% static 'css/download_document_icon.png' %}">
-                            {{document.title}}
-                        </a>
-                    </li>
-                {%endfor%}
-            {%endif%}
-             </ul>
-        </ul>
-    </div>
 
     <div> 
         <form method="post" id="editionForm">
@@ -40,6 +19,8 @@
             <input type="submit" value="Submit" name="submitButton" id="submitButton">
         </form>
     </div>
+
+
     
     <div id="documentEdition">
     {% if not documents %}
@@ -55,7 +36,21 @@
         </li>        
     {%endfor%}
     </div>
+
+    <div id="addNewDocuments">
+        <form enctype='multipart/form-data' action="/upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
+            {% csrf_token %}
+            <div class="fallback">
+              <input name="file" type="file" multiple />
+            </div>
+        </form>
+        <div id="file_submit_button">
+            <Button>Submit new files</Button>
+        </div>
+    </div>
+
+
+    
     
 </body>
-</html>
 {%endblock%}

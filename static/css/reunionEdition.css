@@ -52,7 +52,7 @@
 #editionForm p{
     margin-top:0px;
     margin-bottom:0px;
-    border-top-style:solid;
+    border-top-style:none;
     border-width:2px;
     border-color:rgb(220,220,220);
     padding:15px;

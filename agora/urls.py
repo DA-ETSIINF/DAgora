@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from custom_profiles import views
-from reuniones.views import reunionAsistances, createReunion, main, file_upload, reunionEdit
+from reuniones.views import reunionAsistances, createReunion, main, file_upload, reunionEdit, edition_file_upload
 
 # for file view during developement
 from django.conf import settings
@@ -36,6 +36,9 @@ urlpatterns = [
     # Add one <dir>/upload/ path for every dir that uses the upload system!
     path('upload/', file_upload),
     path('createReunion/upload/', file_upload),
+
+    path('reunion/<str:reunion_name>/edit/upload/', edition_file_upload),
+
 ]
 
 # Enables the viewing of uploaded documents by introducing the url --> only for developement
