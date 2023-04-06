@@ -26,11 +26,13 @@
 
 .user_info{
     padding-top:2px !important;
-    padding-bottom:2px !important;
+    padding-bottom:2px !important;    
 }
 
 #myUser{
-    display:inline-block;    
+    display:inline-block;  
+    font-size: 20px;
+      
 }
 
 #myUser label li{
@@ -47,14 +49,17 @@
 .roleTitle{
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     font-size: 22px;
+    font-weight:bold;
+    margin-bottom:5px;
 }
 
 #userList{
-    margin-left:14px;
+    margin-left:14px;  
 }
 
 #userList div ul li{
-    margin-left:50px;
+    margin-left:35px;
+    font-size: 20px;
 }
 
 

@@ -86,7 +86,7 @@ def reunionEdit(request, reunion_name):
             reunion.save()
 
 
-            return redirect ('../../' + reunion.name + '/edita') 
+            return redirect ('../../' + reunion.name + '/edit') 
     
     # Delete document buttons -> Uses AJAX
     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'file_deletion':
