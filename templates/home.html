@@ -17,8 +17,15 @@
         <ul>
             <li>Name: {{ user.get_full_name }} </li>
             <li>Clase: {{ user.userprofile.clase }} </li>
-            <li>Puesto: {{ user.userprofile.role }} </li>
-
+            <!-- <li>Puesto: {{ user.userprofile.role }} </li> -->
+            <li>
+                <li>Roles: </li>
+                <ul style="margin-left:10px;padding:5px;" > 
+                    {%for role in user.userprofile.role2.all%}
+                    <li style="padding:2px;">{{role}}</li>
+                    {%endfor%}
+                </ul>
+            </li>
         </ul>
     </div>
 
