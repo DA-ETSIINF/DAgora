@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+
+    // this is just to reload the page when clicking the file_submit button so the new files get shown
     $("#file_submit_button").click( function (event) {
 
 

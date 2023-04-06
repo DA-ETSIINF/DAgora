@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
-
-    // Ajax request for user submission
+    // Ajax request for user list and reunion info submission
     $("#reunionname").click( function (event) {   
 
         // get reunion Info from the form ->

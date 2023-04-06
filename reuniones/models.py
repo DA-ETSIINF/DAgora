@@ -105,7 +105,7 @@ class Role(models.Model):
     
     @property
     def get_users(self):
-        return User.objects.filter(userprofile__role2 = self)
+        return User.objects.filter(userprofile__role = self)
 
 
 

@@ -16,8 +16,7 @@ class UserProfile(models.Model):
     # This basically makes the UserProfile class an extension of the User attributes
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     clase = models.CharField(max_length=10, null = True, blank = True)
-    role = models.CharField(max_length=150, null = True, blank = True)
-    role2 = models.ManyToManyField(Role, blank=True, default='1')
+    role = models.ManyToManyField(Role, blank=True, default='1')
 
     def __str__(self):
         return self.user.username
@@ -25,7 +24,7 @@ class UserProfile(models.Model):
     def callable_roles(self):
         roles = []
         callable_roles = []
-        for role in self.role2.all():
+        for role in self.role.all():
             roles.append(role)
         
         for role in roles:

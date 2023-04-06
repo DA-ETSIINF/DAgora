@@ -69,6 +69,20 @@
     
     font-size: 22px;
 }
+
+#userSelectionFormRole li div div label{
+    font-size: 20px;
+}
+
+#userSelectionFormRole li div div label:hover{
+    color:rgb(80,80,80);
+    font-weight:bold;
+}
+
+#userSelectionFormRole li label:hover{
+    color:rgb(80,80,80);
+}
+
 .role_checkbox{
     margin-bottom:5px;
     margin-top:15px;
