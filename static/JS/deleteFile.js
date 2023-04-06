@@ -3,7 +3,6 @@ $(document).ready(function () {
     $(".documentDelButton").click( function (event) {
 
         var documentName =  $(event.target).parent().children('a').text();
-        console.log(documentName);
 
         var url = '';
         var data = {

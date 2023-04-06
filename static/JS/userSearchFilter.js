@@ -47,13 +47,11 @@ $(document).ready(function () {
 
     });
 
-    $('#reunionname').click(function(event){
+    /*$('#reunionname').click(function(event){
         var formArray = $('#id_users').find('div').toArray();
-        
         var divs = $('#id_users').find('div').toArray();
         var objects = [];
-        console.log($(divs));
-        });
+        });*/
 
 
 

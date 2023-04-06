@@ -4,56 +4,72 @@
 {% block content %}
 <body> 
 
-
-
-
     <div class="inputDiv">
+        
+        {% csrf_token %}
+        <div id="reunion_information_input">
+            <li style="display:none" id="alert" style="color:red"> Please fill out all fields</li>
+            <li>
+                <label for="id_my_name">Name of the Reunion:</label>
+                <input type="text" name="my_name" maxlength="100" required="" id="id_my_name">
+            </li>
+            <li>
+                <label for="id_my_date">Date:</label>
+                <input type="date" name="my_date" required="" id="id_my_date">
+            </li>
+            <li>
+                <label for="id_my_description">Description:</label>
+                <textarea name="my_description" cols="40" rows="10" required="" id="id_my_description"></textarea>
+            </li>
+        </div>
+    
+        <!--<div>
+            <label> Order By: </label>
+            <div id="orderByButtons">
+                    
+                <button type="button" id="RoleButton">Role</button><button type="button" id="NameButton">Name</button><button type="button" id="ClassButton">Class</button>    
+            </div>    
+        </div>
 
+        <div id="userSelectionForm">
+            <li>
+                {{ userSelectionForm.as_p }}
+            </li>
+        </div> -->
+
+        
+        <div id="userSelectionFormRole">
+            {%for role in callable_roles%}
+            <li id="{{role}}_userlist">
+                <label for="{{role}}_selectall">
+                    <input type="checkbox" id="{{role}}_selectall">
+                    {{role}}
+                </label>                
+                <div>
+                {%for user in role.get_users%}
+                    <div>
+                        <label for="{{role}}_{{forloop.counter0}}">
+                            <input type="checkbox" id="{{role}}_{{forloop.counter0}}" value="{{user.id}}">
+                            {{user.get_full_name}}  -  {{user.userprofile.clase}}
+                        </label>
+                    </div>
+                {%endfor%}
+                </div>
+            </li>
+            {%endfor%}
+        </div>
 
         <form enctype='multipart/form-data' action="/upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
             {% csrf_token %}
             <div class="fallback">
-              <input name="file" type="file" multiple />
+                <input name="file" type="file" multiple />
             </div>
         </form> 
 
+        <input type="submit" value="Submit" name = "reunionname" id="reunionname">
+    
 
-        <form method="post" id="reunionForm">
-            {% csrf_token %}
-            <li>
-                {{ form.my_name.label_tag }}
-                {{ form.my_name}}
-            </li>
-            <li>
-                {{ form.my_date.label_tag }}
-                {{ form.my_date}}
-            </li>
-            <li>
-                {{ form.my_description.label_tag }}
-                {{ form.my_description}}
-            </li>
-        
-            <div>
-                <label> Order By: </label>
-                <div id="orderByButtons">
-                    <!-- Put buttons on different lines only if you want there to be space between them -> Not be a line anymore -->
-                    <button type="button" id="RoleButton">Role</button><button type="button" id="NameButton">Name</button><button type="button" id="ClassButton">Class</button>    
-                </div>    
-            </div>
-
-            <div id="userSelectionForm">
-                <li>
-                    {{ userSelectionForm.as_p }}
-                </li>
-            </div>
-
-            <input type="submit" value="Submit" name = "reunionname" id="reunionname">
-        </form>
-
-        
-    </div>
-
-
+    
 </body>
 
 {%endblock%}

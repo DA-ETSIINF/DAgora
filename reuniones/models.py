@@ -96,6 +96,19 @@ class Attendance(models.Model):
 
 
 
+class Role(models.Model):
+    name = models.CharField(max_length = 200, unique = True)
+    callable_roles = models.ManyToManyField("self", blank=True, symmetrical=False)
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def get_users(self):
+        return User.objects.filter(userprofile__role2 = self)
+
+
+
 
 
 

@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Reunion, Attendance, Document, TempDocument
-from custom_profiles.models import UserProfile
-from .forms import ReunionForm, UserSelectionFormName, FileUploadForm
+from .forms import ReunionForm
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
 from django.http import JsonResponse #JQuery AJAX requests
-from pathlib import Path
 from django.core.files import File
 import os
 import shutil
@@ -55,16 +54,12 @@ def reunionAsistances(request, reunion_name):
         attendance.asistance = asistValue # True si asistValue (que es el value del botton que puede ser Yes o No) es Yes, False si es No (distinto a Yes)
         attendance.save()
 
-
-
-
     context = {
         'reunion' : reunion,
         'attendances':attendances,
         'documents':documents,
         'editPerms':editPerms,
     }
-
 
     return render(request, 'reunion.html', context)
 
@@ -90,7 +85,7 @@ def reunionEdit(request, reunion_name):
             reunion.save()
 
 
-            return redirect ('../../' + reunion.name + '/edit') 
+            return redirect ('../../' + reunion.name + '/edita') 
     
     # Delete document buttons -> Uses AJAX
     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'file_deletion':
@@ -126,7 +121,6 @@ def reunionEdit(request, reunion_name):
             # Add document to the reunion instance
             reunion.documents.add(new_document)
 
-        print('simonsais')
 
     context = {
         'reunion':reunion,
@@ -143,9 +137,6 @@ def createReunion(request):
     #checks if user is authenticated -> if not -> redirect to login
     if request.user.is_authenticated == False:
         return redirect('/accounts/login')
-    
-    userForm = UserSelectionFormName()
-    #fileForm = FileUploadForm()  -> Replaced by Dropzone
         
 
     if request.method == 'GET':
@@ -153,38 +144,39 @@ def createReunion(request):
         request.session['documents'] = []
 
 
-
-        
-
-    if request.method == 'POST' and 'reunionname' in request.POST:
-        
+    if request.method == 'POST'and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'reunion_users_submit_ajax':
 
         # Access the input box data
+        if not Reunion.objects.filter(name = request.POST['reunion_name']): #check if name is unique
 
-        reunionForm = ReunionForm(request.POST)
-        if reunionForm.is_valid():
-            input_box_name = reunionForm.cleaned_data['my_name']
-            input_box_date = reunionForm.cleaned_data['my_date']
-            input_box_description = reunionForm.cleaned_data['my_description']
+            input_box_name = request.POST['reunion_name']
+            input_box_date = request.POST['reunion_date']
+            input_box_description = request.POST['reunion_description']
+
             Reunion.objects.create(name = input_box_name , date = input_box_date, description = input_box_description, creator=request.user)
 
             # creates reunion first, then adds members 
-            # -> thats because to add members i need to create Attendance objects, so its not really an attribute
+            # -> thats because to add members i need to create Attendance objects, and for that i already need the reunion
 
             # creating Attendance objects, linking Users to the Reunion
-            userForm = UserSelectionFormName(request.POST)
-            if userForm.is_valid():
-                selected_users = userForm.cleaned_data['users']
-                for user in selected_users:
-                    Attendance.objects.create(user=user, reunion = Reunion.objects.get(name=input_box_name))
-                # Puts the reunion creator in the reunion if he didnt select himself
-                if not Attendance.objects.filter(user = request.user, reunion = Reunion.objects.get(name=input_box_name)):
-                    Attendance.objects.create(user=request.user, reunion = Reunion.objects.get(name=input_box_name))
-            else:
-                userForm = UserSelectionFormName()
+            userIds = request.POST['submited_users_Ids'].split(' ')
+            print(userIds)
             
 
-            for document_id in request.session['documents']:
+            for id in userIds:
+                user = User.objects.get(id = id)
+                Attendance.objects.create(user=user, reunion = Reunion.objects.get(name=input_box_name))
+            
+            #check if the reunioncreator (current user) added himself to the reunion
+            #this is all so people dont accidentaly create a reunion they cant acces (to edit or stuff)
+            #if creator didnt add themselves -> add them
+            if not Attendance.objects.filter(user=request.user, reunion=Reunion.objects.get(name=input_box_name)): #return true if it doesnt exist
+                Attendance.objects.create(user = request.user, reunion = Reunion.objects.get(name=input_box_name))
+ 
+
+
+            # document
+            for document_id in request.session['documents']: #TempDocument id gets passed down to the session in def file_upload
 
                 # Get tempDocument with the file we want to add to the reunion
                 tempDocu = TempDocument.objects.get(id = document_id)
@@ -211,25 +203,22 @@ def createReunion(request):
                     os.remove(new_path)
                     
 
-
-
                 # Add document to the reunion instance
                 Reunion.objects.get(name=input_box_name).documents.add(new_document)
             
+            
             # redirect to the summary page of the new reunion
-            return redirect('../reunion/' + input_box_name)
+            #print('../reunion/' + input_box_name)
+            #return redirect ('../reunion/' + input_box_name)
 
-        else:
-            reunionForm = ReunionForm()
-        
-
-
-
+            #redirect is done in ajax!
+    
+            
 
     # passing context to the html page for use
     context = {
         'form' : ReunionForm(),
-        'userSelectionForm': userForm,
+        'callable_roles': request.user.userprofile.callable_roles(),
     }
     
 
@@ -246,7 +235,7 @@ def file_upload(request):
         # Save ID to session so it can then be used in the corresponding view
         request.session.setdefault('documents',[]).append(document.id)
         request.session.save()
-    return JsonResponse({'post':'fasle'})
+    return JsonResponse({'post':'false'})
 
 def edition_file_upload(request, reunion_name):
     if request.method == 'POST':
@@ -255,4 +244,4 @@ def edition_file_upload(request, reunion_name):
         # Save ID to session so it can then be used in the corresponding view
         request.session.setdefault('documents',[]).append(document.id)
         request.session.save()
-    return JsonResponse({'post':'fasle'})
+    return JsonResponse({'post':'false'})

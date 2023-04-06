@@ -7,6 +7,14 @@
     margin:15px;
 }
 
+#reunion_information_input{
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-color:rgb(20,20,20);
+    border-width:2px;
+}
+
+
 #orderByButtons{
     padding: 0px;
 }

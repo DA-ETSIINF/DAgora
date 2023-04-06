@@ -47,6 +47,46 @@ class UserSelectionFormName(forms.Form):
         return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
 
 
+# Custom dynamic form -> You pass a role and they give you a multipleselectionform with users with that role
+class UserSelectionFormRoles(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all().order_by('first_name'),
+        label = '',
+        widget = forms.CheckboxSelectMultiple,
+        )
+
+    def __init__(self, role, **kwargs):
+        super().__init__(**kwargs)
+        self.fields['users'] = forms.ModelMultipleChoiceField(
+            queryset = User.objects.filter(userprofile__role2 = role),
+            label = role.name,
+            widget = forms.CheckboxSelectMultiple,
+            )
+        
+        self.fields['users'].label_from_instance = self.label_from_instance
+
+        #Esto sirve para que a la hora de imprimir los users en el multiplechoicefield que ponga el 'perfil' del usuario y no su nombre de usuario
+    def label_from_instance(self, obj):
+        #str() para que siga funcionando todo si nos olvidamos de poner clase, rol o nombre + apellido a algun perfil -> pondría 'None'
+        return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
+
+class UserSelectionFormRolesReturn(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all().order_by('first_name'),
+        label = '',
+        widget = forms.CheckboxSelectMultiple,
+        )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['users'].label_from_instance = self.label_from_instance
+
+    def label_from_instance(self, obj):
+        #str() para que siga funcionando todo si nos olvidamos de poner clase, rol o nombre + apellido a algun perfil -> pondría 'None'
+        return str(obj.get_full_name()) + ' - ' + str(obj.userprofile.clase) + ' - ' + str(obj.userprofile.role)
+
+
+
 
 # Not used -> Changed to Dropzone in order to enable draging files to upload
 class FileUploadForm(forms.Form):
