@@ -208,13 +208,12 @@ def createReunion(request):
 
                 # Add document to the reunion instance
                 Reunion.objects.get(name=input_box_name).documents.add(new_document)
-            
-            
-            # redirect to the summary page of the new reunion
-            #print('../reunion/' + input_box_name)
-            #return redirect ('../reunion/' + input_box_name)
 
-            #redirect is done in ajax!
+            return JsonResponse({'redirect':True}) #if everything went well -> redirect
+            #this sends a response to the ajax .js file where i can see if i want to redirect or not
+            
+        elif Reunion.objects.filter(name = request.POST['reunion_name']): #reunion already exists:
+            return JsonResponse({'redirect':False})
     
             
 

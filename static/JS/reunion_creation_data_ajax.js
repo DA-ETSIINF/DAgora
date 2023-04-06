@@ -79,12 +79,15 @@ $(document).ready(function(){
             url: url,
             method: 'POST',
             data: data,
-            success: function (data) {
-                console.log(userIdsString);
-                const xhr = new XMLHttpRequest();
-                xhr.open("GET", '../reunion/' + my_name + "/");
-                xhr.send();
-                window.location = '../reunion/' + my_name + "/";
+            success: function (response) {
+
+                if (response.redirect){
+                    window.location = '../reunion/' + my_name + "/";
+                }
+                else{
+                    return;
+                }
+                
             }
         });
     });  

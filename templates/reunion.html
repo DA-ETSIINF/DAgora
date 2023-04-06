@@ -103,12 +103,10 @@
                 <ul> 
                     <div class="roleTitle">{{role}}</div>
                     {%for user in role.get_users%}
+                    {%for attendance in user.attendances.all%}
+                    {%if attendance.reunion == reunion%}
                     <li class="user_info" value="{{user.id}}">
-                        {{user.get_full_name}} - {{user.userprofile.clase}}
-
-                        {%for attendance in user.attendances.all%}
-
-                        {%if attendance.reunion == reunion%}
+                        {{user.get_full_name}} - {{user.userprofile.clase}}  
                         
                         {%if attendance.asistance == True%}
 
@@ -117,11 +115,9 @@
                         {%elif not attendance.asistance%}
                         - will not attend
                         {%endif%}
-
-                        {%endif%}
-
-                        {%endfor%}
                     </li>
+                    {%endif%}
+                    {%endfor%}
                     {%endfor%}
                 </ul>
             </div>

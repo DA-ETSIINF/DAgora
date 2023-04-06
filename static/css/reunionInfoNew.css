@@ -24,6 +24,11 @@
     font-size: 22px;
 }
 
+.user_info{
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+}
+
 #myUser{
     display:inline-block;    
 }
@@ -31,6 +36,7 @@
 #myUser label li{
     float:left;
     margin-left:49px;
+    padding-top:17px !important;
 }
 
 #postButtons{
