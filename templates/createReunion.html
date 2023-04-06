@@ -8,10 +8,10 @@
         
         {% csrf_token %}
         <div id="reunion_information_input">
-            <li style="display:none" id="alert" style="color:red"> Please fill out all fields</li>
+            <li style="display:none" id="alert" style="color:red"> *please fill out all fields</li>
             <li>
                 <label for="id_my_name">Name of the Reunion:</label>
-                <input type="text" name="my_name" maxlength="100" required="" id="id_my_name">
+                <input type="text" name="my_name" maxlength="100" required="" id="id_my_name" placeholder="write the name for the reunion">
             </li>
             <li>
                 <label for="id_my_date">Date:</label>
@@ -19,7 +19,7 @@
             </li>
             <li>
                 <label for="id_my_description">Description:</label>
-                <textarea name="my_description" cols="40" rows="10" required="" id="id_my_description"></textarea>
+                <textarea name="my_description" cols="40" rows="10" required="" id="id_my_description" style="display:block" placeholder="write a description for the reunion"></textarea>
             </li>
         </div>
     
@@ -37,19 +37,33 @@
             </li>
         </div> -->
 
-        
         <div id="userSelectionFormRole">
+            <li><p style="font-weight: bolder; font-size: 25px;"> Select Attendees:</p></li>
             {%for role in callable_roles%}
             <li id="{{role}}_userlist">
-                <label for="{{role}}_selectall">
-                    <input type="checkbox" id="{{role}}_selectall">
+                <label for="{{role}}_selectall" class="role_checkbox">
+                    <div class="checkbox-wrapper-31">
+                        <input type="checkbox" id="{{role}}_selectall">
+                        <svg viewBox="0 0 35.6 35.6">
+                          <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                          <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                          <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                        </svg>
+                      </div>
                     {{role}}
                 </label>                
                 <div>
                 {%for user in role.get_users%}
                     <div>
                         <label for="{{role}}_{{forloop.counter0}}">
-                            <input type="checkbox" id="{{role}}_{{forloop.counter0}}" value="{{user.id}}">
+                            <div class="checkbox-wrapper-31">
+                                <input type="checkbox" id="{{role}}_{{forloop.counter0}}" value="{{user.id}}">
+                                <svg viewBox="0 0 35.6 35.6">
+                                  <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                                  <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                                  <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                                </svg>
+                              </div>
                             {{user.get_full_name}}  -  {{user.userprofile.clase}}
                         </label>
                     </div>
@@ -59,17 +73,19 @@
             {%endfor%}
         </div>
 
-        <form enctype='multipart/form-data' action="/upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
-            {% csrf_token %}
-            <div class="fallback">
-                <input name="file" type="file" multiple />
-            </div>
-        </form> 
+        <div id="file_submission"> 
+            <form enctype='multipart/form-data' action="/upload/" method='POST' class="dropzone dz" id="my-dropzone" name="file">
+                {% csrf_token %}
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+            </form> 
+        </div>
+        
 
         <input type="submit" value="Submit" name = "reunionname" id="reunionname">
-    
 
-    
+        
 </body>
 
 {%endblock%}

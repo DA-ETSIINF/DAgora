@@ -1,6 +1,6 @@
 .reunionTitle{
     margin:10px;
-    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
 
 }
 
@@ -19,7 +19,7 @@
     padding-left: 5px;
     padding-right: 5px;
     
-    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     
     font-size: 22px;
 }

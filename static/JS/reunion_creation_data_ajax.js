@@ -18,11 +18,12 @@ $(document).ready(function(){
 
         let my_name = hasText($('#id_my_name').val());
         let my_date = hasText($('#id_my_date').val());
-        let my_description = hasText($('id_my_description').val());
+        let my_description = hasText($('#id_my_description').val());
 
         // raise alert if theres no name written
-        if (my_name == ''){
-            $('#alert').css("display","block").css("color","red");
+        if (my_name == '' || my_date == ''){
+            $('#alert').css("display","block").css("color","red").css('font-weight','bold');
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             $('#id_my_name').change( function(event){
                 $('#alert').css('display','none');
                 return;
@@ -40,12 +41,12 @@ $(document).ready(function(){
 
         // Get label elements for checked users
         let checkedUserLabels = $('#userSelectionFormRole').children('li').children('div').children('div').children('label').filter(function(){
-            return $(this).children(':checkbox').prop('checked');
+            return $(this).children('div').children(':checkbox').prop('checked');
         });
 
         let userIds = [];
         for (let i = 0; i<checkedUserLabels.length; i++){
-            let checkbox = $(checkedUserLabels[i]).children(':checkbox');
+            let checkbox = $(checkedUserLabels[i]).children('div').children(':checkbox');
             let id = Number(checkbox.val());
             // check if the id is already contained 
             //so even if the same user is selected multiple times (which will happen) there are no repeated ids pased over
@@ -80,6 +81,7 @@ $(document).ready(function(){
             method: 'POST',
             data: data,
             success: function (data) {
+                console.log(userIdsString);
                 const xhr = new XMLHttpRequest();
                 xhr.open("GET", '../reunion/' + my_name + "/");
                 xhr.send();

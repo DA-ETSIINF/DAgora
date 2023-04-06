@@ -12,7 +12,7 @@ $(document).ready( function(){
             return;
         }
 
-        let target = $(event.target).parent(); //The label element
+        let target = $(event.target).parent().parent(); //The label element
 
         // gets all checkbox lines with the same user info (included the one clicked)
         let usersWithSameText = $('#userSelectionFormRole').children('li').children('div').children('div').children('label').filter(function(){
@@ -21,18 +21,18 @@ $(document).ready( function(){
 
         // checks/unchecks all the users with the same info the same way the clicked one was supposed to be checked/unchecked
         // this works because the checking / unchecking happens before the event is triggered
-        usersWithSameText.children(':checkbox').prop('checked',target.children(':checkbox').prop('checked'));
+        usersWithSameText.children('div').children(':checkbox').prop('checked',target.children('div').children(':checkbox').prop('checked'));
 
 
 
         // if unchecked -> uncheck the role checkbox
         // do this with every rolebox that contains an element which was changed (usersWithSameText)
-        if(!target.children(':checkbox').prop('checked')){
-            usersWithSameText.parent().parent().parent().children('label').children(':checkbox').prop('checked',false);
+        if(!target.children('div').children(':checkbox').prop('checked')){
+            usersWithSameText.parent().parent().parent().children('label').children('div').children(':checkbox').prop('checked',false);
         }
 
         // if checked -> see if every other user of every role is checked and check the role checkbox
-        else if(target.children(':checkbox').prop('checked')){
+        else if(target.children('div').children(':checkbox').prop('checked')){
             // one loop for every role there is
             for (let index = 0; index < ($('#userSelectionFormRole').children('li')).length; index++){
 
@@ -43,17 +43,17 @@ $(document).ready( function(){
 
                 // if roleLabel is already checked -> all users are already selected -> no need to check
                 // only do something if it isnt checked
-                if(!roleLabel.children(':checkbox').prop('checked')){
+                if(!roleLabel.children('div').children(':checkbox').prop('checked')){
                     // check if all users are checked
                     let allAreChecked = true;
                     let a = 0;
                     while (allAreChecked && a<roleUserlistLabels.length){
-                        allAreChecked = $(roleUserlistLabels[a]).children(':checkbox').prop('checked');
+                        allAreChecked = $(roleUserlistLabels[a]).children('div').children(':checkbox').prop('checked');
                         a++
                     }
 
                     // change role checkbox to the result of allAreChecked
-                    roleLabel.children(':checkbox').prop('checked',allAreChecked);
+                    roleLabel.children('div').children(':checkbox').prop('checked',allAreChecked);
                 }
             }
         }
@@ -75,7 +75,7 @@ $(document).ready( function(){
         }
 
 
-        let target = $(event.target).parent(); // the label element, not checkbox input element
+        let target = $(event.target).parent().parent(); // the label element, not checkbox input element
 
         // label elements for every user under that role
         let roleUsers = target.parent().children('div').children('div').children('label');  
@@ -92,9 +92,9 @@ $(document).ready( function(){
             return hasSameText;
         });
 
-        roleUsers.children(':checkbox').prop('checked', target.children(':checkbox').prop('checked'));
+        roleUsers.children('div').children(':checkbox').prop('checked', target.children('div').children(':checkbox').prop('checked'));
 
-        usersWithSameTextAsRoleUsers.children(':checkbox').prop('checked',target.children(':checkbox').prop('checked'));
+        usersWithSameTextAsRoleUsers.children('div').children(':checkbox').prop('checked',target.children('div').children(':checkbox').prop('checked'));
         
     });
 });

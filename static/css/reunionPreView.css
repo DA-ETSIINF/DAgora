@@ -11,7 +11,7 @@
 }
 #reunionInfo ul li{
     list-style: none;
-    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     font-size: 22px;
 
     padding:5px;
@@ -93,7 +93,7 @@ h1 a#reunionEdition:hover{
 
 #documentEdition li{
     list-style: none;
-    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     font-size: 22px;
 }
 
@@ -122,7 +122,7 @@ h1 a#reunionEdition:hover{
 }
 
 #editWarning{    
-    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     margin:10px;
 }
 
@@ -138,7 +138,7 @@ h1 a#reunionEdition:hover{
 #addNewDocuments #file_submit_button button{
     background-color:darkgray;
     border-style:none;
-    font-family: "consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     font-size:22px;
     margin-top:20px;
 

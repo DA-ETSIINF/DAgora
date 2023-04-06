@@ -153,6 +153,8 @@ def createReunion(request):
             input_box_date = request.POST['reunion_date']
             input_box_description = request.POST['reunion_description']
 
+            print(input_box_description)
+
             Reunion.objects.create(name = input_box_name , date = input_box_date, description = input_box_description, creator=request.user)
 
             # creates reunion first, then adds members 
