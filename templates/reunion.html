@@ -95,7 +95,7 @@
             </label>
         </div>
 
-        <div> 
+        <div id="userList"> 
         {%for role in roles%}
             {%if role.get_users%}
 
@@ -121,7 +121,6 @@
                         {%endif%}
 
                         {%endfor%}
-
                     </li>
                     {%endfor%}
                 </ul>

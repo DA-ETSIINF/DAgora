@@ -30,12 +30,28 @@
 
 #myUser label li{
     float:left;
+    margin-left:49px;
 }
 
 #postButtons{
     display:inline-block;
     padding-top:17px;
 }
+
+.roleTitle{
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 22px;
+}
+
+#userList{
+    margin-left:14px;
+}
+
+#userList div ul li{
+    margin-left:50px;
+}
+
+
 
 
 
