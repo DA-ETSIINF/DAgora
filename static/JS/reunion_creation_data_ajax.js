@@ -21,7 +21,8 @@ $(document).ready(function(){
 
         // raise alert if theres no name written
         if (my_name == '' || my_date == ''){
-            $('#alert').css("display","block").css("color","red").css('font-weight','bold');
+            $('#alert').css("display","block").css("color","red").css('font-weight','bold');            
+            $('#alert').text('*please fill out all fields');
             $("html, body").animate({ scrollTop: 0 }, "slow");
             $('#id_my_name').change( function(event){
                 $('#alert').css('display','none');
@@ -85,6 +86,15 @@ $(document).ready(function(){
                     window.location = '../reunion/' + my_name + "/";
                 }
                 else{
+                    // if redirect response is false -> its because the view said we shouldnt redirect
+                    // which by now should only happen if the reunion_name is already in use
+                    $('#alert').css("display","block").css("color","red").css('font-weight','bold');
+                    $('#alert').text('*a reunion with that name already exists, please change the name');
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                    $('#id_my_name').change( function(event){
+                        $('#alert').css('display','none');
+                        return;
+                    });
                     return;
                 }
                 
