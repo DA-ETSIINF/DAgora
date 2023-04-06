@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Reunion, Attendance, Document, TempDocument
+from .models import Reunion, Attendance, Document, TempDocument, Role
 from .forms import ReunionForm
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -59,6 +59,7 @@ def reunionAsistances(request, reunion_name):
         'attendances':attendances,
         'documents':documents,
         'editPerms':editPerms,
+        'roles': Role.objects.all(),
     }
 
     return render(request, 'reunion.html', context)

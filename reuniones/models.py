@@ -81,7 +81,7 @@ class Reunion(models.Model):
 # Links User and Reunion together and ads a differend asistance attribute for every User for every Reunion
 class Attendance(models.Model):
     # on_delete = models.CASCADE makes the Attendance object get automatically deleted whenever either the Reunion or the User get deleted
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attendances')
     reunion = models.ForeignKey(Reunion, on_delete=models.CASCADE, related_name='attendances')
     asistance = models.BooleanField(default = False)
 

@@ -46,7 +46,7 @@
         {% for attendance in attendances %}
         {% if attendance.user == request.user %}
 
-        
+        <!--
         <ul class="myUser">
             {%if attendance.asistance%}
 
@@ -58,8 +58,6 @@
 
             {%endif%}
             <li class="postButtons">
-                <!-- form con los botones para cambiar la asistencia -->
-                <!-- aquí es donde se usa el .js script y el jquery importados anteriormente-->
                 <form method="post" id="attendanceForm" >
                     {% csrf_token %}
                     <input type="submit" value="True" name = "trueAsist" id="trueAsist" class="AsistButton">
@@ -67,26 +65,73 @@
                 </form>
             </li>
         </ul>
-
-
-        {% elif not attendance.user ==  request.user  %}
-
-        {%if attendance.asistance%}
-
-        <li class="notUser"> {{attendance.user.get_full_name}} - {{attendance.user.userprofile.clase}} - {{attendance.user.userprofile.role}}  -  will attend</li>
-
-        {%elif not attendance.asistance%} 
-        
-        <li class="notUser"> {{attendance.user.get_full_name}} - {{attendance.user.userprofile.clase}} - {{attendance.user.userprofile.role}}  -  wont attend</li>
-
-        
-        {%endif%}
-
-
-
-
         {% endif %}
-        {% endfor %}
+        {% endfor %}-->
+
+        <div id="myUser">
+            <label for="postButtons"> 
+                <li class="user_info" value="{{request.user.id}}">
+                    {{ request.user.get_full_name}} - {{request.user.userprofile.clase}}
+                    
+                    {%for attendance in request.user.attendances.all%}
+                    {%if attendance.reunion == reunion%}                
+                    {%if attendance.asistance == True%}
+
+                    - will attend
+
+                    {%elif not attendance.asistance%}
+                    - will not attend
+
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                </li>
+
+                <div id="postButtons">
+                    {% csrf_token %}
+                    <input type="submit" value="True" name = "trueAsist" id="trueAsist" class="AsistButton">
+                    <input type="submit" value="False" name = "falseAsist" id="falseAsist" class="AsistButton">
+                </div>
+            </label>
+        </div>
+
+        <div> 
+        {%for role in roles%}
+            {%if role.get_users%}
+
+            <div style="display:block; float:none">
+                <ul> 
+                    <div class="roleTitle">{{role}}</div>
+                    {%for user in role.get_users%}
+                    <li class="user_info" value="{{user.id}}">
+                        {{user.get_full_name}} - {{user.userprofile.clase}}
+
+                        {%for attendance in user.attendances.all%}
+
+                        {%if attendance.reunion == reunion%}
+                        
+                        {%if attendance.asistance == True%}
+
+                        - will attend
+
+                        {%elif not attendance.asistance%}
+                        - will not attend
+                        {%endif%}
+
+                        {%endif%}
+
+                        {%endfor%}
+
+                    </li>
+                    {%endfor%}
+                </ul>
+            </div>
+        
+
+            {%endif%}
+        {%endfor%}
+        </div>
+
 
 
     </div>

@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $('#attendanceForm').submit(function (event) {
+    $('.AsistButton').click(function (event) {
+
       event.preventDefault();
   
       var trueAsist = $('#trueAsist').val();
@@ -7,9 +8,9 @@ $(document).ready(function () {
       var asistValue;
 
       // Mira que botón se ha pulsado y mete su valor en la var asistValue
-      if ($(this).find('#trueAsist').is(':focus')) {
+      if ($('#trueAsist').is(':focus')) {
         asistValue = trueAsist;
-      } else if ($(this).find('#falseAsist').is(':focus')) {
+      } else if ($('#falseAsist').is(':focus')) {
         asistValue = falseAsist;
       }
   
@@ -28,18 +29,30 @@ $(document).ready(function () {
           // aquí es donde se cambia el texto / contenido de la pagina al pulsar los botones
           // no se actualiza el contenido de la database
 
-          var currentText = $(".myUser").children(".userli").text();
-          var updatedText = currentText.replace('will attend', '').replace('wont attend', '');
-          
-          if (asistValue == 'True'){
-            updatedText += 'will attend';
-          }
-          else if (asistValue == 'False'){
-            updatedText += 'wont attend';
-          }
-          
-          $(".myUser").children(".userli").text(updatedText);
+          //definir que botones tienen el mismo text -> el mismo id en el value
+          var textTargets = $('.user_info').filter( function(){
+            return $(this).val() == $('#myUser').children('label').children('li').val();
+          });
 
+          // Definir que texto tienenn que tener => Nombre - clase - will attend / will not attend
+          var text = $('#myUser').children('label').children('li').prop('innerText');
+          text = text.trim();
+          text = text.split('-');          
+          var newText = '';
+          newText = text[0].trim() + ' - ' + text[1].trim();
+
+          if(asistValue == 'True'){
+            newText += ' - will attend'
+          }
+          else if(asistValue == 'False'){
+            newText += ' - will not attend'
+          }
+
+          // coge cada li del usuario que ha pulsado el boton y le cambia el texto al nuevo
+          for (let i=0; i<textTargets.length; i++){
+            var textTarget = $(textTargets[i]);
+            textTarget.text(newText);            
+          }
         }
       });
     });
