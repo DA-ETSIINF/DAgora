@@ -219,7 +219,6 @@ def createReunion(request):
 
     # passing context to the html page for use
     context = {
-        'form' : ReunionForm(),
         'callable_roles': request.user.userprofile.callable_roles(),
     }
     
