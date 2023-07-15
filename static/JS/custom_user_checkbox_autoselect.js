@@ -83,7 +83,7 @@ $(document).ready( function(){
         let usersWithSameTextAsRoleUsers = $('#userSelectionFormRole').children('li').children('div').children('div').children('label').filter(function(){
             
             let hasSameText = false;            
-            let a=0
+            let a=0;
 
             while(!hasSameText && a<roleUsers.length){                
                 hasSameText = $(this).text().trim() ==  $(roleUsers[a]).text().trim();
