@@ -15,32 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView
-from custom_profiles import views
-from reuniones.views import reunionAsistances, createReunion, main, file_upload, reunionEdit, edition_file_upload
+from reunion_system.views import homePage, meetingInfo, create_meeting, meeting_edit
+
 
 # for file view during developement
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', main, name='home'),
-    path('reunion/<str:reunion_name>/', reunionAsistances, name = 'reunionAsistances'),
-    path('reunion/<str:reunion_name>/edit/', reunionEdit, name = 'reunionEdit'),
-    path('createReunion/', createReunion, name = 'createReunion'),
 
-    # Testviews for file uploading -> This urls enable the use of the file_upload view def so we can store file data using dropzone
-    # Add one <dir>/upload/ path for every dir that uses the upload system!
-    path('upload/', file_upload),
-    path('createReunion/upload/', file_upload),
-
-    path('reunion/<str:reunion_name>/edit/upload/', edition_file_upload),
+    path('', homePage, name = 'home'), # name so we can make buttons with {% url = 'home' %}
+    path('create_new_meeting/', create_meeting, name = 'create_new_meeting'),
+    path('meeting/<str:meeting_name>/', meetingInfo, name = 'meeting_info'),
+    path('meeting/<str:meeting_name>/edit', meeting_edit, name = 'meeting_edit'),
 
 ]
 
 # Enables the viewing of uploaded documents by introducing the url --> only for developement
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

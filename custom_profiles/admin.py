@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
-from custom_profiles.models import UserProfile
+from custom_profiles.models import UserProfile, Role
 from django.contrib.auth.models import User
 
 
@@ -27,3 +27,8 @@ class AccountsUserAdmin(AuthUserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, AccountsUserAdmin)
+
+
+
+
+admin.site.register(Role)

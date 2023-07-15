@@ -1,0 +1,101 @@
+
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/meeting_info.css' %}"/>
+    <script src="{% static 'js/meeting_info.js' %}"></script>
+</head>
+<body>
+    
+    <h1 id="meeting_title"> {{meeting.name}} {%if editPerms%} <a id="meetingEdition" href="edit">Edit</a> {%endif%} </h1>
+
+    <div id="meeting_info">
+        <ul>
+            <li>Date: {{meeting.date}}</li>
+            <li> Description:</li>
+            <li class="description">{{meeting.description}}</li>
+            {%if files%}
+            <li> Documents: </li>
+            <ul id="file_list">
+                {%for file in files%}
+                    <li>
+                        <a href="{{file.file.url}}"> 
+                            <img id="file_download_img" src="{% static 'logos/download_file_icon.png' %}">
+                            {{file.title}}
+                        </a>
+                    </li>
+                {%endfor%}
+            {%endif%}
+             </ul>
+        </ul>
+    </div>
+
+    <div id="attendances">
+        <div id="my_user">
+            <label for="attendance_buttons"> 
+                <li class="user_info" value="{{request.user.id}}">
+                    {{ request.user.get_full_name}}
+                    
+                    {%for attendance in request.user.attendances.all%}
+                    {%if attendance.meeting == meeting%}                
+                    {%if attendance.attendance == True%}
+
+                    - will attend
+
+                    {%elif not attendance.attendance%}
+                    - will not attend
+
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                </li>
+
+                <div id="attendance_buttons">
+                    {% csrf_token %}
+                    <input type="submit" value="will attend" id="attendance_true">
+                    <input type="submit" value="won't attend" id="attendance_false">
+                </div>
+            </label>
+        </div>
+
+        <div id="user_list"> 
+        {%for role in roles%}
+            {%if role.get_users%}
+
+            <div style="display:block; float:none">
+                <ul> 
+                    <div class="role_title">{{role}}</div>
+                    {%for user in role.get_users%}
+                    {%for attendance in user.attendances.all%}
+                    {%if attendance.meeting == meeting%}
+                    <li class="user_info" value="{{user.id}}">
+                        {{user.get_full_name}} 
+                        
+                        {%if attendance.attendance == True%}
+
+                        - will attend
+
+                        {%elif not attendance.attendance%}
+                        - will not attend
+                        {%endif%}
+                    </li>
+                    {%endif%}
+                    {%endfor%}
+                    {%endfor%}
+                </ul>
+            </div>
+            {%endif%}
+        {%endfor%}
+        </div>
+    </div>
+
+</body>
+</html>
+{%endblock%}

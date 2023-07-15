@@ -1,0 +1,216 @@
+/* for both meeting creation and meeting edition (as they have almost all the same inputs and structure) */
+
+#base_div div{
+    padding-left:10px;
+}
+
+#base_div li{
+    list-style: none;
+    margin: 15px;
+}
+
+
+#meeting_information_input{
+    margin-top: 25px;
+    border-bottom-style:solid;
+    border-color:rgb(180,180,180);
+    border-width:2px;
+
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 22px;
+}
+
+#meeting_information_input li input{
+    color:rgb(70,70,70);
+    border-style:none;
+
+    margin-left: 10px;
+    margin-right: 10px;
+    
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;    
+    font-size: 22px;
+}
+
+
+#name_input_box{
+    width: 500px;
+}
+
+#description_input_box{
+    color:rgb(70,70,70);    
+
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    
+    font-size: 22px;
+    border-style:dashed;
+
+    width:97%;
+}
+
+
+#user_selection{
+    margin-top: 25px;
+    border-bottom-style:solid;
+    border-color:rgb(180,180,180);
+    border-width:2px;
+
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    
+    font-size: 22px;
+}
+
+#user_selection li div div label{
+    font-size: 20px;
+}
+
+#user_selection li div div label:hover{
+    color:rgb(80,80,80);
+    font-weight:bold;
+}
+
+#user_selection li label:hover{
+    color:rgb(80,80,80);
+}
+
+
+.role_checkbox{ /* The lines for the Roles, not users */
+    margin-bottom:5px;
+    margin-top:15px;
+    display:block;
+    font-weight:bold;
+}
+
+
+#submit_button{
+    margin:25px;
+    height:50px;
+    width:125px;
+    font-weight:bold;
+
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    
+    font-size: 22px;
+
+    border-style:none;
+
+    background-color:gray;
+
+}
+
+#submit_button:hover{
+    border-color:gray;
+    border-style:solid;
+    border-width:2px;
+
+    background-color:lightgray;
+}
+
+#submit_button:active{
+    border-color:lightgray;
+    border-style:solid;
+    border-width:2px;
+
+    background-color:white;
+    
+}
+
+/* File submission (Dropzone section) */
+#file_submission_section{
+    padding-top:25px;
+    padding-bottom: 25px;
+
+    border-bottom-style:solid;
+    border-color:rgb(180,180,180);
+    border-width:2px;
+}
+
+
+/* meeting edition exclusive */
+#edition_tag a{
+    color:gray;
+    text-decoration: none;
+    margin-left:120px;
+}
+#edition_tag a:visited{
+    color:gray;
+    text-decoration: none;
+}
+#edition_tag a:hover{
+    color:rgb(220,220,220);
+    text-decoration: none;
+}
+
+#edition_tag{    
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    margin:10px;
+}
+
+div:has(> #edition_tag){
+    height:53px;
+
+    border-bottom-style:solid;
+    border-width:2px;
+    border-color:lightgray;
+}
+
+/* File section */
+#document_list{
+    margin:0px;
+    
+    padding:15px;
+    padding-left: 40px !important; 
+    border-bottom-style:solid;
+    border-color:rgb(180,180,180);
+    border-width:2px;
+}
+
+#document_list li{
+    list-style: none;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 22px;
+    margin:5px;
+}
+
+#document_list li a{
+    color:black;
+    text-decoration: none;
+}
+#document_list li a:visited{
+    color:black;
+    text-decoration: none;
+}
+
+#document_list li button{
+    background-color:lightgray;
+    margin-left: 30px;
+    border-style: none;
+    height:30px;
+    width:50px;
+    border-radius:7px;    
+}
+#document_list li button:hover{
+    background-color:gray;
+}
+#document_list li button:active{
+    background-color:lightgray;
+}
+
+#file_download_img{
+    height:22px; 
+}
+
+
+/* Dropzone */
+
+#file_submission_section{
+    padding:10px;
+}

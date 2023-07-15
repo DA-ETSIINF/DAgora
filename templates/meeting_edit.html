@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dropzone imports -->
+    <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+    <link rel="stylesheet" href="{% static 'css/dropzone/style.css' %}">
+    <script src="{% static 'js/dropzone/main.js' %}" defer></script>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/meeting_edit.css' %}"/>
+    <script src="{% static 'js/edit_meeting.js' %}"></script>
+
+</head>
+<body>
+    <div>
+        <h1 id="edition_tag"> MODO EDICION  <a href="./">Return</a> </h1>
+    </div>
+    <div id="base_div">
+        {% csrf_token %}
+        <div id="meeting_information_input">
+            <li>
+                <label for="name_input_box">Name of the Meeting</label>
+                <input type="text" id="name_input_box" value="{{meeting.name}}">
+            </li>
+            <li>
+                <label for="date_input_box">Date:</label>
+                <input type="date" id="date_input_box" value='{{meeting.date|date:"Y-m-d"}}'>
+            </li>
+            <li>
+                <label for="description_input_box">Description:</label>
+                <textarea cols="40" rows="10" id="description_input_box"> {{meeting.description}} </textarea>
+            </li>
+        </div>
+
+        <div id="document_list">
+            {% if not files %}
+            <li>There are no files linked to this Reunion</li>
+            {%endif%}
+            {%for file in files%}
+            <li>
+                <a href="{{file.file.url}}"> 
+                    <img id="file_download_img" src="{% static 'logos/download_file_icon.png' %}">
+                    {{file.title}}
+                </a>
+                <input type="checkbox" value="{{file.id}}">
+            </li>        
+            {%endfor%}
+        </div>
+
+        <div id="file_submission_section"> 
+            <form enctype='multipart/form-data' action="{% url 'create_new_meeting' %}" method='POST' class="dropzone dz" id="myDropzone" name="file">
+                {% csrf_token %}
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+            </form> 
+        </div>
+        <script>
+            // JavaScript
+            Dropzone.options.myDropzone = {
+                autoProcessQueue: false, // Disable automatic uploads
+            };
+        </script>
+        
+        <input type="submit" value="Submit" id="submit_button">
+    </div>    
+</body>
+</html>
+
+{%endblock%}

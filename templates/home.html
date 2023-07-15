@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,17 +10,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+</head>
 <body>
 
 
-    <div class="profileWindow">
+    <div id="profile_window">
         <h2>{{ user.username }}</h2>
         <ul>
             <li>Name: {{ user.get_full_name }} </li>
-            <li>Clase: {{ user.userprofile.clase }} </li>
-            <!-- <li>Puesto: {{ user.userprofile.role }} </li> -->
             <li>
                 <li>Roles: </li>
                 <ul style="margin-left:10px;padding:5px;" > 
@@ -30,19 +33,19 @@
     </div>
 
     
-    <div class="reunionsWindow">
+    <div id="meeting_window">
         <h2>Reuniones</h2>
         <ul>
-            {% for reunion in reunion_list %}
-            {% for attendance in reunion.attendances.all %}
+            {% for meeting in meeting_list %}
+            {% for attendance in meeting.attendances.all %}
             {% if attendance.user == request.user %}
-            {% if attendance.asistance %}
+            {% if attendance.attendance %}
             <li> 
-                <a href="/reunion/{{ reunion.name }} "> {{reunion}} - {{reunion.date}} - will asist </a>
+                <a href="/meeting/{{ meeting.name }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - will asist </a>
             </li>
-            {% elif not attendance.asistance %}
+            {% elif not attendance.attendance %}
             <li> 
-                <a href="/reunion/{{ reunion.name }} "> {{reunion}} - {{reunion.date}} - won't asist  </a>
+                <a href="/meeting/{{ meeting.name }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - won't asist  </a>
             </li>
             {% endif %}
             {% endif %}

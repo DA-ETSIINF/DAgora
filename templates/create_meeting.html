@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dropzone imports -->
+    <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+    <link rel="stylesheet" href="{% static 'css/dropzone/style.css' %}">
+    <script src="{% static 'js/dropzone/main.js' %}" defer></script>
+
+    <!-- Page imports -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/checkbox/user_checkboxes.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create_meeting.css' %}"/>
+    
+    <script src="{% static 'js/create_meeting.js' %}"></script>
+    <script src="{% static 'js/checkbox_multiselection.js' %}"></script>
+    
+
+
+
+
+    
+</head>
+<body>
+    <div id="base_div">
+        {% csrf_token %}
+        <div id="meeting_information_input">
+            <li style="display:none" id="alert" style="color:red"> *please fill out all fields</li>
+            <li>
+                <label for="name_input_box">Name of the Reunion:</label>
+                <input type="text" maxlength="100" required="" id="name_input_box" placeholder="write the name for the meeting">
+            </li>
+            <li>
+                <label for="date_input_box">Date:</label>
+                <input type="date" required="" id="date_input_box">
+            </li>
+            <li>
+                <label for="description_input_box">Description:</label>
+                <textarea cols="40" rows="10" required="" id="description_input_box" style="display:block" placeholder="write a description for the reunion"></textarea>
+            </li>
+        </div>
+
+        <div id="user_selection">
+            <li><p style="font-weight: bolder; font-size: 25px;"> Select Attendees:</p></li>
+            {%for role in callable_roles%}
+            {% if role.get_users%}
+            <li id="{{role}}_userlist">
+                <label for="{{role}}_selectall" class="role_checkbox">
+                    <div class="checkbox-wrapper-31">
+                        <input type="checkbox" id="{{role}}_selectall">
+                        <svg viewBox="0 0 35.6 35.6">
+                          <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                          <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                          <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                        </svg>
+                      </div>
+                    {{role}}
+                </label>                
+                <div>
+                {%for user in role.get_users%}
+                    <div>
+                        <label for="{{role}}_{{forloop.counter0}}" class="user_checkbox">
+                            <div class="checkbox-wrapper-31">
+                                <input type="checkbox" id="{{role}}_{{forloop.counter0}}" value="{{user.id}}">
+                                <svg viewBox="0 0 35.6 35.6">
+                                  <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                                  <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                                  <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                                </svg>
+                              </div>
+                            {{user.get_full_name}}  -  {{user.userprofile.clase}}
+                        </label>
+                    </div>
+                {%endfor%}
+                </div>
+            </li>
+            {%endif%}
+            {%endfor%}
+        </div>
+
+        <div id="file_submission_section"> 
+            <form enctype='multipart/form-data' action="{% url 'create_new_meeting' %}" method='POST' class="dropzone dz" id="myDropzone" name="file">
+                {% csrf_token %}
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+            </form> 
+        </div>
+
+        <script>
+            // JavaScript
+            Dropzone.options.myDropzone = {
+                autoProcessQueue: false, // Disable automatic uploads
+            };
+        </script>
+
+        <input type="submit" value="Submit" id="submit_button">
+    </div>    
+</body>
+</html>
+
+{%endblock%}

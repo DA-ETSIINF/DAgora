@@ -1,0 +1,12 @@
+.dz {
+    border: dashed !important;
+    background-color: #ccc !important;
+    border-radius: 10px !important;
+
+    width: 80%;
+    margin-left:10%
+}
+
+.dz:hover {
+    background-color: aliceblue !important;
+}

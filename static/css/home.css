@@ -1,14 +1,13 @@
-
-.profileWindow{
+#profile_window{
     margin: 10px;
     padding:10px;
     background-color:gray;
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
 }
-.profileWindow h2{
+#profile_window h2{
     margin: 3px;
 }
-.profileWindow ul li{
+#profile_window ul li{
     list-style: none;
     
 }
@@ -16,27 +15,27 @@
 
 
 
-.reunionsWindow{
+#meeting_window{
     margin: 10px;
     padding:10px;
     background-color:gray;
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
 }
-.reunionsWindow h2{
+#meeting_window h2{
     margin: 3px;
 }
 
-.reunionsWindow ul li{
+#meeting_window ul li{
     list-style: none;
     margin:5px;
     
 }
 
-.reunionsWindow a:link{
+#meeting_window a:link{
     color: black;
     text-decoration: none;
 }
-.reunionsWindow a:visited{
+#meeting_window a:visited{
     color: black;
     text-decoration: none;
 }

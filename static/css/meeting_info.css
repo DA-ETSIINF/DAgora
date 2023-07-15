@@ -1,0 +1,163 @@
+#meeting_title{
+    margin:10px;
+}
+
+#meeting_title a{
+    color:gray;
+    text-decoration: none;
+    margin-left:120px;
+}
+#meeting_title a:visited{
+    color:gray;
+    text-decoration: none;
+}
+#meeting_title a:hover{
+    color:rgb(220,220,220);
+    text-decoration: none;
+}
+
+#meeting_info{
+    margin:0px;
+    padding:0px;
+
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-color:rgb(220,220,220);
+    border-width:2px;
+}
+
+#meeting_info ul li{
+    list-style: none;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 22px;
+
+    padding:5px;
+    margin:5px;
+}
+
+#meeting_info ul li.description{
+    border-left-style:solid;
+    border-width:2px;    
+    border-color:rgb(220,220,220);
+    white-space: pre-wrap;
+    padding-left:10px;
+    margin-left: 50px;
+}
+
+
+#attendances li{
+    list-style: none;
+
+    margin-left: 10px;
+    margin-right: 10px;
+
+    padding-top:17px;
+    padding-bottom:17px;
+    padding-left: 5px;
+    padding-right: 5px;
+    
+    
+    font-size: 22px;
+}
+
+#my_user{    
+    display:inline-block;  
+    font-size: 20px;
+}
+
+#my_user li{
+    padding-top:2px !important;
+    padding-bottom:2px !important;    
+}
+
+#my_user label li{
+    float: left;
+    margin-left:49px;
+    padding-top:17px !important;
+}
+
+
+
+.role_title{
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 22px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+#user_list{
+    margin-left:14px; 
+}
+
+#user_list div ul li{
+    margin-left:35px;
+    font-size: 20px;
+}
+
+.user_info{
+    padding-top:2px !important;
+    padding-bottom:2px !important;    
+}
+
+
+#attendance_buttons{
+    display:inline-block;
+    padding-top:17px;
+}
+
+
+#attendance_buttons input{
+    border-radius: 7px;
+    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    color: white;
+    border-style: none;
+    height: 30px;
+    width: 100px;
+}
+
+#attendance_true{
+    background-color:green;
+}
+
+#attendance_false{
+    background-color:red;
+}
+
+#attendance_true:hover{
+    background-color:rgb(10, 70, 10);
+}
+
+#attendance_false:hover{
+    background-color:rgb(137, 9, 9);
+}
+
+
+
+#file_list{
+    border-style:dotted;
+    border-color:rgb(240,240,240);
+    display: inline-block;
+    margin-left: 50px;
+    padding:5px;
+}
+#file_list li{
+    padding:5px;
+    margin:2px;
+    
+}
+#file_download_img{
+    height:22px; 
+}
+/* File links */
+#meeting_info a{
+    color: black;
+    text-decoration: none;
+}
+#meeting_info a:visited{
+    color:black;
+    text-decoration: none;
+}
+#meeting_info a:hover{
+    color:rgb(100,100,100);
+    text-decoration: underline;
+}
