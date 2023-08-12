@@ -59,11 +59,7 @@ class UserProfile(models.Model):
     # returns a querry of groups that can be called by this user
     def callable_groups(self):
         user_roles = self.role.all()
-        permissions = []
-        for role in user_roles:
-            for permission in role.permissions.all():
-                if permission not in permissions:
-                    permissions.append(permission)
+        permissions = set(permission for role in user_roles for permission in role.permissions.all())
         groups = Group.objects.filter(permission__in=permissions).distinct()
         return groups
 
