@@ -61,6 +61,10 @@ class UserProfile(models.Model):
         permissions = set(permission for role in user_roles for permission in role.permissions.all())
         groups = Group.objects.filter(permission__in=permissions).distinct()
         return groups
+    
+    # returns true if it has at least one group it can call in its permissions, false if there is nobody that can be called
+    def can_create_meeting(self):
+        return bool(self.callable_groups())
 
         
         

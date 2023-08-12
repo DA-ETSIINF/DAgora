@@ -26,15 +26,14 @@
             <li id="homeButton" class="headerButton">
                 <a href="{% url 'home' %}">Home</a>
             </li>
+            {%if user.userprofile.can_create_meeting %}
             <li id="homeButton" class="headerButton">
                 <a href="{% url 'create_new_meeting' %}">Create Reunion</a>
             </li>
-            
-            {% if user.is_authenticated %}
+            {%endif%}
   
             <li class="headerButton"><a href="{% url 'logout' %}">Log Out</a></li>
   
-            {% endif %}  
         </ul>
     </div>
     <div>
