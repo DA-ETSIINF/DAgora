@@ -94,7 +94,8 @@ def create_meeting(request):
 
     
     context = {
-        'callable_roles': request.user.userprofile.callable_roles(),
+        'callable_groups': request.user.userprofile.callable_groups(),
+        'groups':Group.objects.all(),
     }
 
     return render(request, 'create_meeting.html', context) 

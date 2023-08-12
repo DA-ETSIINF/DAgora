@@ -108,7 +108,7 @@
                 - will attend
 
                 {%elif not attendance.attendance%}
-                - will not attend
+                - won't attend
 
                 {%endif%}
                 {%endif%}
@@ -142,15 +142,11 @@
                                     {{role.name}}
                                 {%endif%}
                             {%endfor%}
-                        {%endfor%}
-
-                    
+                        {%endfor%}                    
                     {%if attendance.attendance == True%}
-
-                    - will attend
-
+                        - will attend
                     {%elif not attendance.attendance%}
-                    - won't attend
+                        - won't attend
                     {%endif%}
                 </li>
                 {%endif%}
@@ -158,6 +154,7 @@
                 {%endfor%}
             </ul>
         </div>
+        
         {%endif%}
     {%endfor%}
     </div>

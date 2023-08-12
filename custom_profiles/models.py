@@ -55,17 +55,17 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-    # returns an array of roles this user can call to a meeting (all roles its roles can call)
-    def callable_roles(self):
-        roles = []
-        callable_roles = []
-        for role in self.role.all():
-            roles.append(role)
-        for role in roles:
-            for callableRole in role.callable_roles.all():
-                if callableRole not in callable_roles:
-                    callable_roles.append(callableRole)
-        return callable_roles
+    
+    # returns a querry of groups that can be called by this user
+    def callable_groups(self):
+        user_roles = self.role.all()
+        permissions = []
+        for role in user_roles:
+            for permission in role.permissions.all():
+                if permission not in permissions:
+                    permissions.append(permission)
+        groups = Group.objects.filter(permission__in=permissions).distinct()
+        return groups
 
         
         
