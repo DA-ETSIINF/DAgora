@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
-from custom_profiles.models import UserProfile, Role
+from custom_profiles.models import UserProfile, Role, Group, Permission
 from django.contrib.auth.models import User
 
 
@@ -32,3 +32,5 @@ admin.site.register(User, AccountsUserAdmin)
 
 
 admin.site.register(Role)
+admin.site.register(Group)
+admin.site.register(Permission)

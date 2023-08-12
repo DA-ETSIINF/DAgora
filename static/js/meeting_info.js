@@ -36,20 +36,20 @@ $(document).ready(function(){
                 let targets = $('.user_info').filter(function(){
                     return $(this).val() == $('#my_user').children('label').children('.user_info').val();
                 });
-
-                // Text is "Name - will/won't attend"
-                let text = $('#my_user').children('label').children('li').prop('innerText').trim().split('-')[0].trim(); //Only the Name (without the " - will/won't attend part")
-
+                
                 if(attendance == true){
-                    text += " - will attend";
+                    var AttendanceText = " - will attend";
                 }
                 else{
-                    text += " - won't attend";
+                    var AttendanceText = " - won't attend";
                 }
 
                 // change the text content for every target
                 for (let i=0; i<targets.length; i++){
-                    var target = $(targets[i]);
+                    let target = $(targets[i]);
+                    let text = target.text().split('-');
+                    text.pop();
+                    text = text.join('-').trim() + AttendanceText;
                     target.text(text);            
                   }
             }

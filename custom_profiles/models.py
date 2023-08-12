@@ -5,11 +5,34 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=200, unique = True)
+
+    # ToString()
+    def __str__(self):
+        return self.name
+    
+    @property
+    def get_users(self):
+        return User.objects.filter(userprofile__role__group=self).distinct()
+
+
+class Permission(models.Model):
+    name = models.CharField(max_length=200, unique = True)
+    groups = models.ManyToManyField(Group)
+    # ToString()
+    def __str__(self):
+        return self.name
+
+
+
 # Role -> Role the User has in the organization (ex. President, videpresident)
 # Has a name and a list of other Roles it can call to a Meeting
 class Role(models.Model):
     name = models.CharField(max_length = 200, unique = True)
+    group = models.ManyToManyField(Group)
     callable_roles = models.ManyToManyField("self", blank=True, symmetrical=False)
+    permissions = models.ManyToManyField(Permission, related_name='roles', blank=True)
 
     # ToString()
     def __str__(self):
@@ -28,7 +51,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     #class attribute? ex. 1A, 1M-B, 3T etc.
-    role = models.ManyToManyField(Role, blank=True, default='1')
+    role = models.ManyToManyField(Role, blank=True)
 
     def __str__(self):
         return self.user.username

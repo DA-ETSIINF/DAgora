@@ -37,7 +37,7 @@
         </ul>
     </div>
 
-    <div id="attendances">
+    <!-- <div id="attendances">
         <div id="my_user">
             <label for="attendance_buttons"> 
                 <li class="user_info" value="{{request.user.id}}">
@@ -94,7 +94,74 @@
             {%endif%}
         {%endfor%}
         </div>
+    </div> -->
+
+    <div id="my_user">
+        <label for="attendance_buttons"> 
+            <li class="user_info" value="{{request.user.id}}">
+                {{ request.user.get_full_name}}
+                
+                {%for attendance in request.user.attendances.all%}
+                {%if attendance.meeting == meeting%}                
+                {%if attendance.attendance == True%}
+
+                - will attend
+
+                {%elif not attendance.attendance%}
+                - will not attend
+
+                {%endif%}
+                {%endif%}
+                {%endfor%}
+            </li>
+
+            <div id="attendance_buttons">
+                {% csrf_token %}
+                <input type="submit" value="will attend" id="attendance_true">
+                <input type="submit" value="won't attend" id="attendance_false">
+            </div>
+        </label>
     </div>
+
+    <div id="user_list"> 
+    {%for group in groups%}
+        {%if group.get_users%}
+
+        <div style="display:block; float:none">
+            <ul> 
+                <div class="role_title">{{group}}</div>
+                {%for user in group.get_users%}
+                {%for attendance in user.attendances.all%}
+                {%if attendance.meeting == meeting%}
+                <li class="user_info" value="{{user.id}}">
+                    {{user.get_full_name}} -
+
+                        {%for role in user.userprofile.role.all%}
+                            {%for roleGroup in role.group.all%}
+                                {%if roleGroup.name == group.name%}
+                                    {{role.name}}
+                                {%endif%}
+                            {%endfor%}
+                        {%endfor%}
+
+                    
+                    {%if attendance.attendance == True%}
+
+                    - will attend
+
+                    {%elif not attendance.attendance%}
+                    - won't attend
+                    {%endif%}
+                </li>
+                {%endif%}
+                {%endfor%}
+                {%endfor%}
+            </ul>
+        </div>
+        {%endif%}
+    {%endfor%}
+    </div>
+
 
 </body>
 </html>

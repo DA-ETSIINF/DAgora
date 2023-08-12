@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from custom_profiles.models import Role
+from custom_profiles.models import Role, Group, Permission
 from reunion_system.models import Meeting, Attendance, File
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -44,6 +44,7 @@ def meetingInfo(request, meeting_name):
         'files':files,
         'editPerms':editPerms,
         'roles': Role.objects.all(),
+        'groups': Group.objects.all(),
     }
 
     return render(request, 'meeting_info.html', context)
