@@ -41,11 +41,11 @@
             {% if attendance.user == request.user %}
             {% if attendance.attendance %}
             <li> 
-                <a href="/meeting/{{ meeting.name }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - will asist </a>
+                <a href="/meeting/{{ meeting.id }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - will asist </a>
             </li>
             {% elif not attendance.attendance %}
             <li> 
-                <a href="/meeting/{{ meeting.name }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - won't asist  </a>
+                <a href="/meeting/{{ meeting.id }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - won't asist  </a>
             </li>
             {% endif %}
             {% endif %}

@@ -9,7 +9,7 @@ import shutil
 
 # Meeting model -> basic atributes and structure of a Meeting
 class Meeting(models.Model):
-    name = models.CharField(max_length=100, unique = True)
+    name = models.CharField(max_length=100, unique = False)
     description = models.TextField(default = ' ')
     date = models.DateField()
     attendees = models.ManyToManyField(User, through='Attendance', related_name = 'meetings')

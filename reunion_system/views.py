@@ -23,12 +23,12 @@ def homePage(request):
     return render(request, 'home.html', context)
 
 # Overview page for meetings
-def meetingInfo(request, meeting_name):
+def meetingInfo(request, meeting_id):
     # checks if user is authenticated -> if not -> asks for login
     if request.user.is_authenticated == False:
         return redirect('/accounts/login')
     
-    meeting = Meeting.objects.get(name = meeting_name)
+    meeting = Meeting.objects.get(id = meeting_id)
     files = File.objects.filter(meeting=meeting)
     editPerms = meeting.creator == request.user
 
@@ -57,21 +57,18 @@ def create_meeting(request):
     
 
     if request.method == 'POST'and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'meeting_submit':
-        #check if name is already in use
-        if Meeting.objects.filter(name=request.POST['meeting_name']):
-            return JsonResponse({'redirect':False})
         
         meeting_name = request.POST['meeting_name']
         meeting_date = request.POST['meeting_date']
         meeting_description = request.POST['meeting_description']
 
-        Meeting.objects.create(name=meeting_name, date=meeting_date, description=meeting_description, creator = request.user)
+        new_meeting = Meeting.objects.create(name=meeting_name, date=meeting_date, description=meeting_description, creator = request.user)
 
         # create attendance instances for selected users
         if request.POST['submited_users_Ids'] != '': # If there have been Ids submitted
             user_ids = request.POST['submited_users_Ids'].split(' ')
             for id in user_ids:
-                Attendance.objects.create(user = User.objects.get(id=id), meeting = Meeting.objects.get(name=meeting_name))
+                Attendance.objects.create(user = User.objects.get(id=id), meeting = new_meeting)
 
         #still have to check if the user is someone that can be called to the meeting (to prevent exploits)!
 
@@ -79,18 +76,18 @@ def create_meeting(request):
 
 
         # create attendance instance for user/creator (so people dont accidentaly not add themselves to their meeting)
-        if not Attendance.objects.filter(user=request.user, meeting=Meeting.objects.get(name=meeting_name)):
-            Attendance.objects.create(user = request.user, meeting = Meeting.objects.get(name=meeting_name))
+        if not Attendance.objects.filter(user=request.user, meeting=new_meeting):
+            Attendance.objects.create(user = request.user, meeting = new_meeting)
 
 
         # handle files
         files = request.FILES.getlist('files')
 
         for file in files:
-            File.objects.create(meeting=Meeting.objects.get(name=meeting_name),file=file)
+            File.objects.create(meeting=new_meeting,file=file)
 
         
-        return JsonResponse({'redirect':True})        
+        return JsonResponse({'redirect':True,'meeting_id':new_meeting.id})        
 
     
     context = {
@@ -100,8 +97,8 @@ def create_meeting(request):
 
     return render(request, 'create_meeting.html', context) 
 
-def meeting_edit(request, meeting_name):
-    meeting = Meeting.objects.get(name = meeting_name)
+def meeting_edit(request, meeting_id):
+    meeting = Meeting.objects.get(id = meeting_id)
     files = File.objects.filter(meeting=meeting)
 
     if request.method == 'POST'and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'meeting_submit':
@@ -121,7 +118,7 @@ def meeting_edit(request, meeting_name):
         files = request.FILES.getlist('files')
 
         for file in files:
-            File.objects.create(meeting=Meeting.objects.get(name=meeting_name),file=file)
+            File.objects.create(meeting=meeting,file=file)
 
 
         return JsonResponse({'redirect':True})

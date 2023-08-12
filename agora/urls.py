@@ -28,8 +28,8 @@ urlpatterns = [
 
     path('', homePage, name = 'home'), # name so we can make buttons with {% url = 'home' %}
     path('create_new_meeting/', create_meeting, name = 'create_new_meeting'),
-    path('meeting/<str:meeting_name>/', meetingInfo, name = 'meeting_info'),
-    path('meeting/<str:meeting_name>/edit', meeting_edit, name = 'meeting_edit'),
+    path('meeting/<str:meeting_id>/', meetingInfo, name = 'meeting_info'),
+    path('meeting/<str:meeting_id>/edit', meeting_edit, name = 'meeting_edit'),
 
 ]
 

@@ -76,9 +76,8 @@ $(document).ready(function(){
                 success: function (response) {
 
                     if (response.redirect){
-                        window.location = '../'+meeting_name;
+                        window.location = './'
                     }
-                    console.log(meeting_name)
                     
                 }
             });

@@ -83,7 +83,7 @@ $(document).ready(function(){
                 success: function (response) {
 
                     if (response.redirect){
-                        window.location = '../meeting/' + meeting_name + "/";
+                        window.location.href = '/../meeting/' + response.meeting_id;
                     }
                     else{
                         // if redirect response == false -> view said the name is already in use -> display alert

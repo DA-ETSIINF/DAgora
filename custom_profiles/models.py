@@ -31,7 +31,6 @@ class Permission(models.Model):
 class Role(models.Model):
     name = models.CharField(max_length = 200, unique = True)
     group = models.ManyToManyField(Group)
-    callable_roles = models.ManyToManyField("self", blank=True, symmetrical=False)
     permissions = models.ManyToManyField(Permission, related_name='roles', blank=True)
 
     # ToString()
