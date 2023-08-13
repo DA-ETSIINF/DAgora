@@ -15,6 +15,11 @@ def homePage(request):
     user = request.user
     meeting_list = Meeting.objects.all()
 
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        user.userprofile.show_email = request.POST['show_email']=="true"
+        user.userprofile.save()
+
+
     context = {
         'user' : user,
         'meeting_list' : meeting_list,
