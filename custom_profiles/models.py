@@ -51,6 +51,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     #class attribute? ex. 1A, 1M-B, 3T etc.
     role = models.ManyToManyField(Role, blank=True)
+    show_email = models.BooleanField(default = True)
 
     def __str__(self):
         return self.user.username

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/userlist.css' %}"/>
+    <title>Document</title>
+</head>
+<body>
+    <div id="userlist">
+        {%for user in users%}
+        <div class="user_box">
+            <div class="basic_info">
+                <div class="name_box">{{user.get_full_name}}</div>
+                <div class="email_box">
+                    {%if user.userprofile.show_email%}
+                        {{user.email}}
+                    {%else%}
+                        Email set to private
+                    {%endif%}
+                </div>
+            </div>
+            <div class="role_box">
+                {%for role in user.userprofile.role.all%}
+                <li>{{role}}</li>
+                {%endfor%}
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</body>
+</html>
+{%endblock%}

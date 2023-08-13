@@ -26,6 +26,9 @@
             <li id="homeButton" class="headerButton">
                 <a href="{% url 'home' %}">Home</a>
             </li>
+            <li id="homeButton" class="headerButton">
+                <a href="{% url 'userlist' %}">User List</a>
+            </li>
             {%if user.userprofile.can_create_meeting %}
             <li id="homeButton" class="headerButton">
                 <a href="{% url 'create_new_meeting' %}">Create Reunion</a>

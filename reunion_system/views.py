@@ -98,7 +98,15 @@ def create_meeting(request):
     return render(request, 'create_meeting.html', context) 
 
 def meeting_edit(request, meeting_id):
+    #checks if user is authenticated -> if not -> redirect to login
+    if request.user.is_authenticated == False:
+        return redirect('/accounts/login')
+    
     meeting = Meeting.objects.get(id = meeting_id)
+    #checks if user has perms to edit meeting -> if not -> redirect to info page 
+    if meeting.creator != request.user:
+        return redirect('./')
+    
     files = File.objects.filter(meeting=meeting)
 
     if request.method == 'POST'and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'meeting_submit':
@@ -130,6 +138,18 @@ def meeting_edit(request, meeting_id):
     }
     return render(request,'meeting_edit.html', context)
 
+def userlist(request):
+    #checks if user is authenticated -> if not -> redirect to login
+    if request.user.is_authenticated == False:
+        return redirect('/accounts/login')
+    
+    
+    
+    context = {
+        'users' : User.objects.all(),
+    }
+    
+    return render(request, 'userlist.html', context)
 
 
 #Auxiliary functions:
