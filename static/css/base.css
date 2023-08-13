@@ -4,7 +4,7 @@ body{
 }
 
 #header{
-    background-color: rgb(25,78,130);
+    background-color: #014479;
     height:60px;
     margin: 0px;
 
@@ -40,6 +40,22 @@ body{
 #headerMenu a{
     color:white;
     text-decoration: none;
+}
+
+.headerButton:not(:first-child) {
+    margin-left: 10px; /* Add margin to separate the buttons */
+    position: relative; /* Position the button container relative */
+}
+
+.headerButton:not(:first-child)::before {
+    content: ''; /* Empty content for the pseudo-element */
+    position: absolute; /* Position the pseudo-element absolutely */
+    left: -10px; /* Adjust the position to align with the previous button */
+    top: 50%; /* Position the line vertically in the middle */
+    transform: translateY(-50%); /* Center the line vertically */
+    width: 1px; /* Width of the line */
+    height: 35%; /* Height of the line, adjust as needed */
+    border-left: 2px solid #417092;
 }
 
 .headerButton:hover{
