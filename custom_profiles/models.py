@@ -67,6 +67,10 @@ class UserProfile(models.Model):
     def can_create_meeting(self):
         return bool(self.callable_groups())
 
+    def can_call_user(self, user):
+        user_groups = set(group for role in user.userprofile.role.all() for group in role.group.all())
+        return any(group in user_groups for group in self.callable_groups())
+
         
         
 # When creating an User it creates a matching UserProfile for it

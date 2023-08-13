@@ -33,7 +33,12 @@ def meetingInfo(request, meeting_id):
     if request.user.is_authenticated == False:
         return redirect('/accounts/login')
     
+    
     meeting = Meeting.objects.get(id = meeting_id)
+    # check if user is supposed to have acces to the meeting -> if not -> redirect to home
+    if not Attendance.objects.filter(user = request.user, meeting = meeting):
+        return redirect('../../')
+    
     files = File.objects.filter(meeting=meeting)
     editPerms = meeting.creator == request.user
 
@@ -60,6 +65,10 @@ def create_meeting(request):
     if request.user.is_authenticated == False:
         return redirect('/accounts/login')
     
+    #checks if user can create a meeting -> if not -> redirect to home
+    if not request.user.userprofile.can_create_meeting():
+        return redirect('../')
+    
 
     if request.method == 'POST'and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'meeting_submit':
         
@@ -73,11 +82,10 @@ def create_meeting(request):
         if request.POST['submited_users_Ids'] != '': # If there have been Ids submitted
             user_ids = request.POST['submited_users_Ids'].split(' ')
             for id in user_ids:
-                Attendance.objects.create(user = User.objects.get(id=id), meeting = new_meeting)
-
-        #still have to check if the user is someone that can be called to the meeting (to prevent exploits)!
-
-
+                #check if user can be called by creator -> By changing ids in the html document other users than intended can be added to the meeting
+                user = User.objects.get(id=id)
+                if request.user.userprofile.can_call_user(user):
+                    Attendance.objects.create(user = user, meeting = new_meeting) 
 
 
         # create attendance instance for user/creator (so people dont accidentaly not add themselves to their meeting)
@@ -112,7 +120,6 @@ def meeting_edit(request, meeting_id):
     if meeting.creator != request.user:
         return redirect('./')
     
-    files = File.objects.filter(meeting=meeting)
 
     if request.method == 'POST'and request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST['post_type'] == 'meeting_submit':
 
@@ -124,8 +131,10 @@ def meeting_edit(request, meeting_id):
         # handle file deletion
         file_ids = request.POST.getlist('file_id')
         for id in file_ids:
-            File.objects.get(id = id).delete()
-
+            #check if the file is part of the meeting -> so people dont delete other files by changing ids in the html of the site
+            file = File.objects.get(id = id)
+            if file.meeting == meeting:
+                File.objects.get(id = id).delete()
 
         # handle files
         files = request.FILES.getlist('files')
@@ -134,12 +143,12 @@ def meeting_edit(request, meeting_id):
             File.objects.create(meeting=meeting,file=file)
 
 
-        return JsonResponse({'redirect':True})
+        return JsonResponse({'redirect':True}) #Javascript has to handle redirect
         
 
     context = {
         'meeting' : meeting,
-        'files':files,
+        'files':File.objects.filter(meeting=meeting),
     }
     return render(request,'meeting_edit.html', context)
 
