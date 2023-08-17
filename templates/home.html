@@ -37,22 +37,41 @@
         </ul>
     </div>
 
-    
-    <div id="meeting_window">
-        <h2>Reuniones</h2>
-        <ul>
-            {% for meeting in meeting_list %}
+    <div class="section">
+        <div class="section_title">Meetings</div>
+        <div class="section_div">
+            {% for meeting in future_meetings %}
             {% for attendance in meeting.attendances.all %}
             {% if attendance.user == request.user %}            
-            <li> 
-                <a href="/meeting/{{ meeting.id }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}}, {{meeting.time|time:"H:i"}}
-                    {% if attendance.attendance %} - will asist {% elif not attendance.attendance %} - won't asist {% endif %}</a>
-            </li>
+            <a class="meeting_div" href="/meeting/{{ meeting.id }} ">
+                <div class="meeting_name">{{meeting}}</div>
+                <div class="meeting_info">{{meeting.date|date:"d/m/y"}}, {{meeting.time|time:"H:i"}}</div>
+                {% if attendance.attendance %}
+                <div class="meeting_attendance" attendance="true"> will asist  </div>
+                {% elif not attendance.attendance %}
+                <div class="meeting_attendance" attendance="false"> won't asist  </div>
+                {% endif %}
+            </a>
             {% endif %}
             {% endfor %}
             {% endfor %}
-        </ul>
-    </div> 
+        </div>
+    </div>
+    <div class="section">
+        <div class="section_title">Past Meetings</div>
+        <div class="section_div">
+            {% for meeting in past_meetings %}
+            {% for attendance in meeting.attendances.all %}
+            {% if attendance.user == request.user %}            
+            <a class="meeting_div" href="/meeting/{{ meeting.id }} ">
+                <div class="meeting_name">{{meeting}}</div>
+                <div class="meeting_info">{{meeting.date|date:"d/m/y"}}, {{meeting.time|time:"H:i"}}</div>
+            </a>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
 

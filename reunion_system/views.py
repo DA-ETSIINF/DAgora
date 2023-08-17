@@ -4,6 +4,8 @@ from reunion_system.models import Meeting, Attendance, File
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.http import JsonResponse
+from django.db.models import Q
+from django.utils import timezone
 from django.core.files.storage import default_storage
 
 
@@ -13,7 +15,15 @@ def homePage(request):
         return redirect('/accounts/login')
     
     user = request.user
-    meeting_list = Meeting.objects.all()
+    meeting_list = Meeting.objects.all().order_by('date', 'time')
+    now = timezone.localtime(timezone.now()) # So it doesnt happen that timezone.now() is different 
+    future_meetings = Meeting.objects.filter(
+        Q(date__gt=now.date()) | (Q(date=now.date()) & Q(time__gte=now.time()))
+    ).order_by('date', 'time')
+
+    past_meetings = Meeting.objects.filter(
+        Q(date__lt=now.date()) | (Q(date=now.date()) & Q(time__lt=now.time()))
+    ).order_by('-date', '-time')
 
     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         user.userprofile.show_email = request.POST['show_email']=="true"
@@ -23,6 +33,8 @@ def homePage(request):
     context = {
         'user' : user,
         'meeting_list' : meeting_list,
+        'future_meetings' : future_meetings,
+        'past_meetings' : past_meetings,
         }
 
     return render(request, 'home.html', context)

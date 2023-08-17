@@ -39,3 +39,58 @@
     color: black;
     text-decoration: none;
 }
+
+
+
+
+
+
+
+.section{
+    padding: 10px;
+}
+
+.section_title{
+    padding:10px;
+    border-radius:5px;
+    color:white;
+    font-size: 25px;
+    display:inline-block;
+    background-color: #014479;
+}
+
+.section_div{
+    padding:20px;
+}
+
+.meeting_div{
+    padding:10px;
+    padding-top:2px;
+    padding-bottom:2px;
+    margin: 3px 0px 3px 0px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
+}
+
+.meeting_div div{
+    margin:5px;
+}
+
+.meeting_name{
+    font-size: 20px;
+}
+.meeting_info{
+    font-size: 16px;
+}
+.meeting_attendance{
+    font-size: 16px;
+}
+.meeting_attendance[attendance="true"]{
+    color:green;
+}
+.meeting_attendance[attendance="false"]{
+    color:red;
+}
