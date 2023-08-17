@@ -35,6 +35,10 @@
                 <input type="date" id="date_input_box" value='{{meeting.date|date:"Y-m-d"}}'>
             </li>
             <li>
+                <label for="time_input_box">Time:</label>
+                <input type="time" id="time_input_box" value='{{meeting.time|time:"H:i"}}'>
+            </li>
+            <li>
                 <label for="description_input_box">Description:</label>
                 <textarea cols="40" rows="10" id="description_input_box"> {{meeting.description}} </textarea>
             </li>
@@ -42,7 +46,7 @@
 
         <div id="document_list">
             {% if not files %}
-            <li>There are no files linked to this Reunion</li>
+            <li>There are no files attached to this Meeting</li>
             {%endif%}
             {%for file in files%}
             <li>

@@ -18,11 +18,12 @@ $(document).ready(function(){
 
         let meeting_name = get_text($('#name_input_box').val());
         let meeting_date = get_text($('#date_input_box').val());
+        let meeting_time = get_text($('#time_input_box').val());
         let meeting_description = get_text($('#description_input_box').val());
 
 
         // raise alert if theres no name or date written
-        if (meeting_name == '' || meeting_date == ''){
+        if (meeting_name == '' || meeting_date == '' || meeting_time == ''){
             $('#alert').css("display","block").css("color","red").css('font-weight','bold');            
             $('#alert').text('*please fill out all fields');
             $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -66,6 +67,7 @@ $(document).ready(function(){
         data.append('submited_users_Ids', user_ids_string);
         data.append('meeting_name', meeting_name);
         data.append('meeting_date', meeting_date);
+        data.append('meeting_time', meeting_time);
         data.append('meeting_description', meeting_description);
 
         var files = myDropzone.getAcceptedFiles();
@@ -73,7 +75,7 @@ $(document).ready(function(){
             data.append('files', files[i]);
         }
 
-        if(meeting_date != '' && meeting_name != ''){ // Only submits ajax request if there is a date and a name
+        if(meeting_date != '' && meeting_name != '' && meeting_time != ''){ // Only submits ajax request if there is a date and a name and a time
             $.ajax({
                 url: url,
                 method: 'POST',

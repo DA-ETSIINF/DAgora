@@ -43,16 +43,11 @@
         <ul>
             {% for meeting in meeting_list %}
             {% for attendance in meeting.attendances.all %}
-            {% if attendance.user == request.user %}
-            {% if attendance.attendance %}
+            {% if attendance.user == request.user %}            
             <li> 
-                <a href="/meeting/{{ meeting.id }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - will asist </a>
+                <a href="/meeting/{{ meeting.id }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}}, {{meeting.time|time:"H:i"}}
+                    {% if attendance.attendance %} - will asist {% elif not attendance.attendance %} - won't asist {% endif %}</a>
             </li>
-            {% elif not attendance.attendance %}
-            <li> 
-                <a href="/meeting/{{ meeting.id }} "> {{meeting}} - {{meeting.date|date:"d/m/y"}} - won't asist  </a>
-            </li>
-            {% endif %}
             {% endif %}
             {% endfor %}
             {% endfor %}

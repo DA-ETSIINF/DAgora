@@ -74,9 +74,10 @@ def create_meeting(request):
         
         meeting_name = request.POST['meeting_name']
         meeting_date = request.POST['meeting_date']
+        meeting_time = request.POST['meeting_time']
         meeting_description = request.POST['meeting_description']
 
-        new_meeting = Meeting.objects.create(name=meeting_name, date=meeting_date, description=meeting_description, creator = request.user)
+        new_meeting = Meeting.objects.create(name=meeting_name, date=meeting_date, time = meeting_time, description=meeting_description, creator = request.user)
 
         # create attendance instances for selected users
         if request.POST['submited_users_Ids'] != '': # If there have been Ids submitted
