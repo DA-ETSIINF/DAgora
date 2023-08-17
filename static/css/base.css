@@ -3,6 +3,10 @@ body{
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
 }
 
+#logo{
+    margin: 20px 0px 20px 0px;
+}
+
 #header{
     background-color: #014479;
     height:60px;

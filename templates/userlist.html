@@ -15,13 +15,15 @@
         {%for user in users%}
         <div class="user_box">
             <div class="basic_info">
-                <div class="name_box">{{user.get_full_name}}</div>
-                <div class="email_box">
-                    {%if user.userprofile.show_email%}
-                        {{user.email}}
-                    {%else%}
-                        Email set to private
-                    {%endif%}
+                <div>
+                    <div class="name_box">{{user.get_full_name}}</div>
+                    <div class="email_box">
+                        {%if user.userprofile.show_email%}
+                            {{user.email}}
+                        {%else%}
+                            Email set to private
+                        {%endif%}
+                    </div>
                 </div>
             </div>
             <div class="role_box">
