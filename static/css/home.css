@@ -1,5 +1,12 @@
+
+/* content */
+#content{
+    padding: 0 10% 0 10%;
+}
+
+/* profile window */
 #profile_window{
-    margin: 10px;
+    margin-top: 10px;
     padding:10px;
     background-color:gray;
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
@@ -12,9 +19,7 @@
     
 }
 
-
-
-
+/* meeting window */
 #meeting_window{
     margin: 10px;
     padding:10px;
@@ -76,6 +81,12 @@
 }
 
 .meeting_div div{
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* adds '...' at the end of the shortened overflowed content */
+}
+
+.meeting_div div{
     margin:5px;
 }
 
@@ -93,4 +104,11 @@
 }
 .meeting_attendance[attendance="false"]{
     color:red;
+}
+
+@media (max-width: 768px){
+    .section_title{
+        width:100%;
+        text-align: center;
+    }
 }

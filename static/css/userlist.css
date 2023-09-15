@@ -6,7 +6,6 @@
     border-radius: 10px;
     
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
-    font-size: 18px;
 }
 
 
@@ -50,6 +49,21 @@
     padding-left: 15px;
     list-style: none;
     font-size: 16px;
+}
+
+@media (max-width: 768px){
+    .basic_info div{
+        max-width:100%;
+        white-space: nowrap; /* Prevent text from wrapping to the next line */
+        overflow: hidden; /* Hide any overflowing content */
+        text-overflow: ellipsis; /* adds '...' at the end of the shortened overflowed content */
+    }
+    .basic_info{
+        flex: 1;
+        white-space: nowrap; /* Prevent text from wrapping to the next line */
+        overflow: hidden; /* Hide any overflowing content */
+        text-overflow: ellipsis; /* adds '...' at the end of the shortened overflowed content */
+    }
 }
 
 

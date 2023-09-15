@@ -14,35 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+    <script src="{% static 'js/dropdown_menu.js' %}"></script>
 
 </head>
-<body style="padding-left:10%;padding-right:10%; font-family: Noto Sans;">
-    <div id="banner">
-        <img id="logo" src="{% static 'logos/LogoDA.png' %}" width="250" height="94">
-    </div>
-
-    <div id="header">
-        <ul id="headerMenu">
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'home' %}">Home</a>
-            </li>
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'userlist' %}">User List</a>
-            </li>
-            {%if user.userprofile.can_create_meeting %}
-            <li id="homeButton" class="headerButton">
-                <a href="{% url 'create_new_meeting' %}">Create Reunion</a>
-            </li>
-            {%endif%}
-  
-            <li class="headerButton"><a href="{% url 'logout' %}">Log Out</a></li>
-  
-        </ul>
-    </div>
-    <div>
-        {% block content %}
-        {% endblock content %}
-    </div>
-    
-</body>
+{% block content %}
+{% endblock content %}
 </html>

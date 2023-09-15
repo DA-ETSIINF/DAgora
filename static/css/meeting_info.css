@@ -17,13 +17,17 @@
 }
 
 #meeting_info{
-    margin:0px;
-    padding:0px;
+    margin: 25px 10px 10px 10px;
+    font-size: 22px;
 
-    border-top-style:solid;
-    border-bottom-style:solid;
-    border-color:rgb(220,220,220);
-    border-width:2px;
+    padding:10px;
+    padding-top:2px;
+    padding-bottom:2px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
 }
 
 #meeting_info ul li{
@@ -38,10 +42,57 @@
 #meeting_info ul li.description{
     border-left-style:solid;
     border-width:2px;    
-    border-color:rgb(220,220,220);
+    border-color:rgb(1, 68, 121);
+    overflow-wrap: break-word;
     white-space: pre-wrap;
     padding-left:10px;
     margin-left: 50px;
+}
+
+#file_list{
+    border-style:dotted;
+    border-color:#014479;
+    display: block;
+    margin-left: 50px;
+    padding:5px;
+
+}
+#file_list li{
+    padding:5px;
+    margin:2px;    
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Vertically center align the content */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide any overflowing content */
+}
+#file_list li a{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text with ellipsis */
+}
+#file_download_img{
+    height:22px; 
+}
+
+@media (max-width: 768px){
+
+    #meeting_info ul{
+        padding-left:5px;
+    }
+
+    #meeting_info ul li{
+        font-size: 20px;
+    }
+    #meeting_info ul li.description{
+        margin-left:15px;
+    }
+    #meeting_info #file_list{
+        margin-left: 15px;
+        font-size: 18px;;
+    }
+    #meeting_info #file_list li{
+        font-size: 18px;
+    }
 }
 
 
@@ -60,21 +111,36 @@
     font-size: 22px;
 }
 
-#my_user{    
-    display:inline-block;  
-    font-size: 20px;
+#my_user{
+    margin: 25px 10px 10px 10px;
+    font-size: 22px;
+
+    padding:10px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
+}
+
+#my_user label{
+    display:flex;
 }
 
 #my_user li{
     padding-top:2px !important;
-    padding-bottom:2px !important;    
+    padding-bottom:2px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
 }
 
 #my_user label li{
     float: left;
     margin-left:49px;
-    padding-top:17px !important;
 }
+
+
 
 
 
@@ -86,12 +152,23 @@
 }
 
 #user_list{
-    margin-left:14px; 
+    margin: 25px 10px 10px 10px;
+    font-size: 22px;
+
+    padding:10px;
+    padding-top:2px;
+    padding-bottom:2px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
 }
 
 #user_list div ul li{
     margin-left:35px;
     font-size: 20px;
+    list-style: none;
 }
 
 .user_info{
@@ -101,8 +178,9 @@
 
 
 #attendance_buttons{
-    display:inline-block;
-    padding-top:17px;
+    display:inline;
+    margin-left: 10px;
+    
 }
 
 
@@ -131,23 +209,41 @@
     background-color:rgb(137, 9, 9);
 }
 
+@media (max-width:768px){
+    #my_user{
+        font-size: 18px;
+    }
+    #my_user label{
+        padding: 0 15px 0 15px;
+        display:flex;
+        justify-content: space-between;
+    }
+    #my_user label li{
+        margin-left:5px;
+    }
+    #attendance_buttons input{
+        font-size:0px;
+        width: 24px;
+        height:24px;
+        border-radius: 24px;
+    }
+
+    .role_title{
+        font-size: 20px;
+    }
+
+    #user_list ul{
+        padding-left: 15px;
+    }
+    #user_list div ul li{
+        margin-left: 20px;
+        font-size: 16px;
+    }
+}
 
 
-#file_list{
-    border-style:dotted;
-    border-color:rgb(240,240,240);
-    display: inline-block;
-    margin-left: 50px;
-    padding:5px;
-}
-#file_list li{
-    padding:5px;
-    margin:2px;
-    
-}
-#file_download_img{
-    height:22px; 
-}
+
+
 /* File links */
 #meeting_info a{
     color: black;

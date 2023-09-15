@@ -11,33 +11,48 @@
 
 
 #meeting_information_input{
-    margin-top: 25px;
-    border-bottom-style:solid;
-    border-color:rgb(180,180,180);
-    border-width:2px;
-
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    margin: 25px 10px 10px 10px;
     font-size: 22px;
+
+    padding:10px;
+    padding-top:2px;
+    padding-bottom:2px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
 }
 
+.input_box{
+    background-color: lightgray;
+    color: rgb(60,60,60);
+    font-size: 22px;
+    font-family: "Noto Sans","consolas", sans-serif, 'Times New Roman', Times, serif;  
+}
+.input_box::placeholder{
+    color: rgb(60,60,60);
+}
+
+#name_input_box_holder{
+    display: grid;
+    grid-template-columns: auto 1fr; /* "auto" for label width, "1fr" for input width */
+    gap: 10px; /* Adjust as needed for spacing between label and input */
+}
+
+
 #meeting_information_input li input{
-    color:rgb(70,70,70);
     border-style:none;
 
     margin-left: 10px;
     margin-right: 10px;
     
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;    
-    font-size: 22px;
+      
 }
 
 
-#name_input_box{
-    width: 500px;
-}
 
-#description_input_box{
-    color:rgb(70,70,70);    
+#description_input_box{   
 
     margin-left: 10px;
     margin-right: 10px;
@@ -48,24 +63,48 @@
     padding-left: 10px;
     padding-right: 10px;
     
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
-    
-    font-size: 22px;
     border-style:dashed;
 
     width:97%;
 }
 
+@media (max-width: 768px){
+
+    #meeting_information_input{
+        font-size: 20px;
+    }
+    #name_input_box_holder{
+        display:block;
+    }
+    #name_input_box{
+        width:100%;
+    }
+    .input_box{
+        font-size: 16px;
+    }
+    .input_box::placeholder{
+        font-size: 18px;
+    }
+
+    #description_input_box{
+        margin:0px !important;
+        width: calc(100% - 30px) !important; /*100% - margin - 10% body*/
+    }
+}
+
 
 #user_selection{
-    margin-top: 25px;
-    border-bottom-style:solid;
-    border-color:rgb(180,180,180);
-    border-width:2px;
-
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
-    
+    margin: 25px 10px 10px 10px;
     font-size: 22px;
+
+    padding:10px;
+    padding-top:2px;
+    padding-bottom:2px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
 }
 
 #user_selection li div div label{
@@ -89,6 +128,19 @@
     font-weight:bold;
 }
 
+@media (max-width: 768px){
+    #user_selection{
+        font-size:20px;
+    }
+
+    #user_selection li div div label{
+        white-space: nowrap; /* Prevent text from wrapping to the next line */
+        overflow: hidden; /* Hide any overflowing content */
+        text-overflow: ellipsis; /* adds '...' at the end of the shortened overflowed content */
+        font-size: 18px;
+    }
+}
+
 
 #submit_button{
     margin:25px;
@@ -96,7 +148,7 @@
     width:125px;
     font-weight:bold;
 
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Noto Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     
     font-size: 22px;
 
@@ -150,8 +202,14 @@
 }
 
 #edition_tag{    
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Noto Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     margin:10px;
+}
+
+@media (max-width: 768px){
+    #edition_tag{
+        font-size: 22px;
+    }
 }
 
 div:has(> #edition_tag){
@@ -164,13 +222,18 @@ div:has(> #edition_tag){
 
 /* File section */
 #document_list{
-    margin:0px;
-    
-    padding:15px;
-    padding-left: 40px !important; 
-    border-bottom-style:solid;
-    border-color:rgb(180,180,180);
-    border-width:2px;
+
+    margin: 25px 10px 10px 10px;
+    font-size: 22px;
+
+    padding:20px;
+    padding-top:2px;
+    padding: 10px;
+    border-radius:5px;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    background-color: lightgray;
 }
 
 #document_list li{
@@ -178,15 +241,30 @@ div:has(> #edition_tag){
     font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
     font-size: 22px;
     margin:5px;
+
+    max-width:calc(100% - 55px);
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Vertically center align the content */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide any overflowing content */
 }
+
+
 
 #document_list li a{
     color:black;
     text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text with ellipsis */
 }
 #document_list li a:visited{
     color:black;
     text-decoration: none;
+}
+
+#document_list li:hover a{
+    color:rgb(99, 99, 99);
 }
 
 #document_list li button{
@@ -206,6 +284,24 @@ div:has(> #edition_tag){
 
 #file_download_img{
     height:22px; 
+}
+
+@media (max-width:768px){
+
+    /*Code so document names get shortened if too long without pushing out the checkbox*/
+    #document_list li{
+        font-size:18px;
+
+        
+    }
+
+    #document_list li a{        
+        flex: 1;
+    }
+
+    #file_download_img{
+        height:18px;
+    }
 }
 
 

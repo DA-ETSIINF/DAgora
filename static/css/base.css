@@ -1,67 +1,111 @@
 body{
     margin:0px;
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-family: "Noto Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    font-size: 18px;
 }
 
 #logo{
     margin: 20px 0px 20px 0px;
 }
 
+
+/* header/Toolbar */
 #header{
     background-color: #014479;
-    height:60px;
-    margin: 0px;
-
-    position: relative;
-}
-#headerMenu{
-    margin:0px;
+    height:42px;
+    display: flex;
+    align-items: center;
+    padding: 0 10% 0 10%;
 }
 
-#headerMenu li{
-    height:30px;
-    list-style: none;
+#header div{
+    height:100%;
 
+    padding-left: 15px;
+    padding-right: 15px;
 
-    margin-left: 10px;
-    margin-right: 10px;
-
-    text-align: center;
-
-    float:left;
-
-    font-size: 22px;
+    font-size: 1em;
     color:white;
 
-    padding-top:15px;
-    padding-bottom:15px;
-    padding-left: 5px;
-    padding-right: 5px;
-
-    font-family: "Open Sans","consolas", sans-serif, 'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center;
 }
 
-#headerMenu a{
+#header a{
     color:white;
     text-decoration: none;
 }
 
 .headerButton:not(:first-child) {
-    margin-left: 10px; /* Add margin to separate the buttons */
+    margin-left: 1px; /* Add margin to separate the buttons */
     position: relative; /* Position the button container relative */
 }
 
 .headerButton:not(:first-child)::before {
     content: ''; /* Empty content for the pseudo-element */
     position: absolute; /* Position the pseudo-element absolutely */
-    left: -10px; /* Adjust the position to align with the previous button */
+    left: -1px; /* Adjust the position to align with the previous button */
     top: 50%; /* Position the line vertically in the middle */
     transform: translateY(-50%); /* Center the line vertically */
     width: 1px; /* Width of the line */
-    height: 35%; /* Height of the line, adjust as needed */
+    height: 25%; /* Height of the line, adjust as needed */
     border-left: 2px solid #417092;
 }
 
 .headerButton:hover{
     background-color:rgb(14, 53, 92);
+}
+
+/*mobile header*/
+#mobile_header{
+    display: none;
+}
+
+@media (max-width: 768px){
+    #header{
+        display: none;
+    }
+
+    #mobile_header{
+        background-color: rgb(1, 68, 121);
+        height:42px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10% 0 10%;
+
+    }
+
+    .mobileHeaderButton{
+        height:100%;
+    
+        font-size: 1em;
+        color:white;
+    
+        display: flex;
+        align-items: center; /* Vertically center the content */
+        justify-content: center;
+    }
+
+    #dropdown_content {
+        display: none;
+        z-index: 99999;
+        height: calc(100% - 181px);
+        top:181px;
+        width:100%;
+        left: 0;    /* Align the left edge of the dropdown with the button */
+        position: absolute;
+        background-color: rgba(1,68,121,0.8);
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
+      
+      /* Style the dropdown links */
+      #dropdown_content a {
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        color: white;
+      }
 }
