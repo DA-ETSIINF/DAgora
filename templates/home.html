@@ -10,54 +10,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
 
 </head>
 
 <body>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
 
-    <div class="meeting">
-        <div class="meetings">
+    <section class="meeting-box">
+
+        <div class="title">
             <h2>Active Meetings</h2>
+        </div>
+
+        <div class="meetings">
+            {%if not future_meetings%}
+            <div class="no-meetings"> No future meetings planned </div>
+            {%endif%}
             {% for meeting in future_meetings %}
             {% for attendance in meeting.attendances.all %}
             {% if attendance.user == request.user %}
-            <a class="meeting_id" href="/meeting/{{ meeting.id }} ">
-                <div class="meeting_div">
-                    
-                    <div class="meeting_moment">
-                        <div class="meeting_date">
-                            {{meeting.date|date:"d/m/y"}}
-                        </div>
-                        <div class="meeting_time">
-                            {{meeting.time|time:"H:i"}}
-                        </div>
+            <a class="meeting-info" href="/meeting/{{ meeting.id }} ">
+                <div class="meeting-name-date">
+                    <div class="meeting-name">{{meeting}}</div>
+                    <div id="justify-centre" class="meeting-time">
+                        {{meeting.date|date:"d/m/y"}} |
+                        {{meeting.time|time:"H:i"}}
                     </div>
-
-                    <div class="meeting_name">{{meeting}}</div>
-                    
-                    {% if attendance.attendance %}
-                    <div class="meeting_attendance" attendance="true"> will asist </div>
-                    {% else %}
-                    <div class="meeting_attendance" attendance="false"> won't asist </div>
-                    {% endif %}
                 </div>
 
+                {% if attendance.attendance %}
+                <div id="justify-centre" class="meeting_attendance" attendance="true"> will asist </div>
+                {% else %}
+                <div id="justify-centre" class="meeting_attendance" attendance="false"> won't asist </div>
+                {% endif %}
             </a>
             {% endif %}
             {% endfor %}
             {% endfor %}
+        </div>
+    </section>
 
-
-
+    <section class="meeting-box">
+        <div class="title">
+            <h2>Past Meetings</h2>
         </div>
 
         <div class="meetings">
-            <h2>Past Meetings</h2>
-        </div>
-    </div>
+            {%if not past_meetings%}
+            <div class="no-meetings"> No past meetings planned </div>
+            {%endif%}
+            {% for meeting in past_meetings %}
+            {% for attendance in meeting.attendances.all %}
+            {% if attendance.user == request.user %}
+            <a class="meeting-info" href="/meeting/{{ meeting.id }} ">
+                <div class="meeting-name-date">
+                    <div class="meeting-name">{{meeting}}</div>
+                    <div id="justify-centre" class="meeting-time">
+                        {{meeting.date|date:"d/m/y"}} |
+                        {{meeting.time|time:"H:i"}}
+                    </div>
+                </div>
 
+                {% if attendance.attendance %}
+                <div id="justify-centre" class="meeting_attendance" attendance="true"> You've attended </div>
+                {% else %}
+                <div id="justify-centre" class="meeting_attendance" attendance="false"> You haven't attended </div>
+                {% endif %}
+            </a>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="meetings">
+
+        </div>
+    </section>
 
 
 
