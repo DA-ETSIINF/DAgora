@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from reunion_system.views import homePage, meetingInfo, create_meeting, meeting_edit, userlist
+from reunion_system.views import homePage, meetingInfo, create_meeting, meeting_edit, userlist, profile
 
 
 # for file view during developement
@@ -31,7 +31,7 @@ urlpatterns = [
     path('meeting/<str:meeting_id>/', meetingInfo, name = 'meeting_info'),
     path('meeting/<str:meeting_id>/edit', meeting_edit, name = 'meeting_edit'),
     path('userlist',userlist, name='userlist'),
-
+    path('profile',profile, name='profile'),
 ]
 
 # Enables the viewing of uploaded documents by introducing the url --> only for developement

@@ -1,10 +1,107 @@
+.meeting {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 
-/* content */
+@media (max-width: 768px) {
+    .meeting {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+h2 {
+    display: flex;
+    background-color: #115c8b;
+    width: 100% - 100px;
+    margin: 20px;
+    border-radius: 5px;
+    padding: 20px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.meeting_id {
+    text-decoration: none;
+}
+
+.meeting_div {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    height: auto;
+    background-color: gray;
+    margin: 20px;
+
+}
+
+.meeting_moment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 5px;
+
+
+    font-size: 25px;
+    
+    color: white;
+    background-color: black;
+}
+
+.meeting_date{
+    
+}
+
+.meeting_name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+    color: white;
+}
+
+.meeting_attendance{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: white;
+}
+
+.meeting_attendance[attendance="true"]{
+    background-color:green;
+    text-align: center;
+    padding: 10px;
+}
+.meeting_attendance[attendance="false"]{
+    background-color:red;
+    text-align: center;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* content
 #content{
     padding: 0 10% 0 10%;
 }
 
-/* profile window */
+profile window
 #profile_window{
     margin-top: 10px;
     padding:10px;
@@ -19,7 +116,7 @@
     
 }
 
-/* meeting window */
+meeting window
 #meeting_window{
     margin: 10px;
     padding:10px;
@@ -81,9 +178,9 @@
 }
 
 .meeting_div div{
-    white-space: nowrap; /* Prevent text from wrapping to the next line */
-    overflow: hidden; /* Hide any overflowing content */
-    text-overflow: ellipsis; /* adds '...' at the end of the shortened overflowed content */
+    white-space: nowrap; Prevent text from wrapping to the next line
+    overflow: hidden; Hide any overflowing content
+    text-overflow: ellipsis; adds '...' at the end of the shortened overflowed content
 }
 
 .meeting_div div{
@@ -111,4 +208,4 @@
         width:100%;
         text-align: center;
     }
-}
+} */

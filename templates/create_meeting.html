@@ -30,44 +30,7 @@
     
 </head>
 <body>
-    <div id="banner">
-        <img id="logo" src="{% static 'logos/LogoDA.png' %}" width="250" height="94">
-    </div>
 
-    <div id="header">
-        <div id="homeButton" class="headerButton">
-            <a href="{% url 'home' %}">Home</a>
-        </div>
-        <div id="homeButton" class="headerButton">
-            <a href="{% url 'userlist' %}">User List</a>
-        </div>
-        {%if user.userprofile.can_create_meeting %}
-        <div id="homeButton" class="headerButton">
-            <a href="{% url 'create_new_meeting' %}">Create Reunion</a>
-        </div>
-        {%endif%}
-
-        <div class="headerButton"><a href="{% url 'logout' %}">Log Out</a></div>
-
-    </div>
-    <div id="mobile_header">
-        <div id="homeButton" class="mobileHeaderButton">
-            <a href="{%url 'home'%}"><img id="home_icon" src="{% static 'logos/home_icon.png' %}" height="30"></a>
-        </div>
-        <div id="dropdown_menu" class="mobileHeaderButton">
-            <div id="dropdown_button"><img id="dropdown_menu_icon" src="{% static 'logos/dropdown_menu_icon.png' %}" height="30"></div>
-            <div id="dropdown_content">
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'userlist' %}">User List</a>
-                {%if user.userprofile.can_create_meeting %}
-                <a href="{% url 'create_new_meeting' %}">Create Reunion</a>
-                {%endif%}
-                <a href="{% url 'logout' %}">Log Out</a>
-            </div>
-        </div>
-    </div>
-
-    
     <div id="base_div">
         {% csrf_token %}
         <div id="meeting_information_input">

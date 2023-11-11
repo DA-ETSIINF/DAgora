@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+    <link rel="stylesheet" href="{% static 'css/dropzone/style.css' %}">
+    <script src="{% static 'js/dropzone/main.js' %}" defer></script>
+
+
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Fonts/fonts.css' %}">
+</head>
+
+<body>
+
+    <div id="profile">
+        <section class="profile">
+
+            <img id="profileImage" src="{% static 'logos/LogoDA2.png' %}" alt="">
+
+            <h1>{{ profile.get_full_name }}</h1>
+
+        </section>
+        <section class="information">
+
+            <div class="infoTittle">
+                <h1>Información</h1>
+            </div>
+
+            <div class="userData">
+                <div class="data">
+                    <h2><strong><u>Name:</u></strong></h2>
+                    <h3>{{profile.get_full_name}}</h3>
+                
+                    <h2><strong><u>Email:</u></strong></h2>
+                    <h3>{{profile.email}}</h3>
+                    <label for="email_checkbox"><strong><u>Show email:</u></strong></label><input type="checkbox" {% if user.userprofile.show_email %}checked{% endif %} id="email_checkbox"></input>
+                </div>
+
+                <div class="rols">
+                    <h2><strong><u>Roles:</u></strong></h2>
+                    <ul id="userRol">
+                        {%for role in profile.userprofile.role.all%}
+                        <li>{{role}}</li>
+                        {%endfor%}
+                    </ul>
+
+                </div>
+            </div>
+
+
+        </section>
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+{%endblock%}
+
+<!-- <div class="profile">
+        <div class="profileNav">
+
+            <div id="imageContainer">
+                <img id="profileImage" src="{% static 'logos/LogoDA2.png' %}" alt="">
+                <h1>{{ profile.get_full_name }}</h1>
+            </div>
+
+
+            <div id="logout">
+                <a href="{% url 'logout' %}">Log Out</a>
+
+            </div>
+
+
+
+        </div>
+        <div class="profileData">
+            <div class="userData">
+                <h1>Información</h1>
+
+                <div id="userData">
+                    <div class="data1">
+                        <h2>Name: {{profile.get_full_name}}</h2>
+                        <hr>
+                        <h2>Email: {{profile.email}}</h2>
+                        <hr>
+                        
+                        <hr>
+                    </div>
+
+                    <hr>
+
+                    <div class="data2">
+                        <h2>Roles:</h2>
+                        <ul id="userRol">
+                            {%for role in profile.userprofile.role.all%}
+                            <li>{{role}}</li>
+                            {%endfor%}
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+
+<!-- <div class="meetings">
+                <div class="activeMeetings">
+                    <h1>Active Meetings</h1>
+                    <div class="section_div">
+                        {% if not meetings %}
+                        <div> No future meetings planned </div>
+                        {% else %}
+                        {% for meeting in meetings %}
+                        {% for attendance in meeting.attendances.all %}
+                        {% if attendance.user == request.user %}            
+                        <a class="meeting_div" href="/meeting/{{ meeting.id }} ">
+                            <div class="meeting_name">{{meeting}}</div>
+                            <div class="meeting_info">{{meeting.date|date:"d/m/y"}}, {{meeting.time|time:"H:i"}}</div>
+                            {% if attendance.attendance %}
+                            <div class="meeting_attendance" attendance="true"> will asist  </div>
+                            {% else %}
+                            <div class="meeting_attendance" attendance="false"> won't asist  </div>
+                            {% endif %}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="pastMeetings">
+                    <h1>Past Meetings</h1>
+                    
+                </div>
+            </div> -->
+
+
+
+
+
+
+
+
+<!-- <div class="menuPerfil">
+        <div id="title">{{profile.username}}</div>
+
+        <div class="data">
+            <div class="data_content">
+                <div id="data_content">Name: {{profile.username}}</div>
+                <div id="data_content">Email: {{profile.email}}</div>
+                <div id="data_content"><label>Show email: <input type="checkbox" {% if user.userprofile.show_email%}checked{% endif %} name="Franco"></div></label>
+                <div id="data_content">Roles:
+                    <ul id="rol">
+                        {%for role in profile.userprofile.role.all%}
+                        <li>{{role}}</li>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+                
+            
+
+        </div>
+
+
+    </div> -->

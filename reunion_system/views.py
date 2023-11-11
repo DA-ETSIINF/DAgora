@@ -178,6 +178,18 @@ def userlist(request):
     
     return render(request, 'userlist.html', context)
 
+def profile(request):
+    #checks if user is authenticated -> if not -> redirect to login
+    if request.user.is_authenticated == False:
+        return redirect('/accounts/login')
+    
+    context = {
+        'meetings' : Meeting.objects.all(),
+        'profile' : request.user,
+
+    }
+    
+    return render(request, 'profile.html', context)
 
 #Auxiliary functions:
 

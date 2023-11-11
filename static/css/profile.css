@@ -1,0 +1,327 @@
+* {}
+
+body {}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+
+    padding: 20px;
+    background-color: #5496bd;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+#profileImage {
+    margin: 25px;
+    background-color: white;
+    width: 150px;
+
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 5px;
+    border-color: black;
+}
+
+.information {
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    height: 450px;
+    background-color: #b4ccd4;
+}
+
+.infoTittle {
+    background-color: #115c8b;
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+    height: 50px;
+}
+
+.infoTittle h1 {
+    font-size: 30px;
+    margin-left: 20px;
+    color: white;
+}
+
+.userData {
+    display: flex;
+    margin-left: 20px;
+
+
+}
+
+.data {
+    line-height: 20px; 
+}
+
+.data h2 {
+    color: #115c8b;
+}
+
+.data h3 {
+    
+}
+
+.rols {
+    margin-left: 20px;
+}
+
+#userRol {
+    line-height: 20px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+#userRol li {
+    margin: 10px;
+    padding: 0;
+}
+
+@media (max-width: 900px) {
+    #profile {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile {
+        display: flex;
+        flex-direction: row;
+        height: 100px;
+        width: calc(100% - 80px);
+        padding: 20px;
+    }
+
+    #profileImage {
+        
+        margin: 0 20px 0 0;
+        background-color: white;
+        width: 100px;
+    }
+
+    .information {
+        height: auto;
+        width: auto;
+    }
+
+    .userData {
+        display: flex;
+        flex-direction: column;
+    }
+
+    
+}
+
+@media (max-width: 450px) {
+
+    .profile {
+        
+        height: 80px;
+        width: calc(100% - 60px);
+        padding: 10px;
+    }
+
+    #profileImage {
+        width: 75px;
+        border-width: 4px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+    .data {
+        font-size: 15px;
+    }
+
+    .rols {
+        font-size: 15px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+    border-radius: 10px;
+
+    height: 100px;
+    padding: 20px;
+   
+    background-color: cadetblue;
+}
+
+#imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    border-radius: 10px 0px 0px 10px;
+    
+   
+}
+
+#profileImage {
+    background-color: white;
+    border-radius: 50%;
+    height: 70%;
+
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+}
+
+
+#logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: rgb(157, 0, 0);
+    padding: 0px 20px 0px 20px;
+    height: auto;
+    margin: 20px 15px 20px 15px;
+    border-radius: 20px;
+    
+}
+
+#logout a {
+    text-decoration: none;
+    color: white;
+}
+
+.profileData {
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+
+    height: auto;
+}
+
+.userData {
+    margin: 20px;
+    height: auto;
+    border-radius: 10px;
+    background-color: rgb(170, 168, 168);
+    padding:0 20px 0 20px;
+
+    font-size: 15px;
+}
+
+#userData {
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+}
+
+#userRol{
+    font-size: 20px;
+    list-style: none;
+}
+
+.meetings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+}
+
+.activeMeetings {
+    background-color: aqua;
+    margin: 20px;
+    border-radius: 10px;
+    padding:0 20px 0 20px;
+}
+
+.pastMeetings {
+    background-color: khaki;
+    margin: 20px;
+    border-radius: 10px;
+    padding:0 20px 0 20px;
+} */
+
+/* @media (max-width: 800px) {
+
+    .profile {
+        display: grid;
+        grid-template-rows: 1fr 4fr;
+    }
+} */
+
+
+/* .menuPerfil{
+    border-radius: 10px;
+    background-color: gray;
+    margin: 20px 20% 0 20%;
+}
+
+#title {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blue;
+    border-radius: 10px;
+}
+
+.data {
+    display: grid;
+    justify-content: center;
+}
+
+.data_content {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: gainsboro;
+    border-radius: 10px;
+    flex-wrap: nowrap;
+}
+
+#data_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
