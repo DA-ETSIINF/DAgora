@@ -4,6 +4,13 @@ body{
     font-size: 18px;
 }
 
+/*Alinea el logo en el centro para probar como queda (si no gusta quitar #banner{})*/
+#banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #logo{
     margin: 20px 0px 20px 0px;
 }
@@ -16,6 +23,7 @@ body{
     display: flex;
     align-items: center;
     padding: 0 10% 0 10%;
+    justify-content: space-between; /*separa el log out del resto*/
 }
 
 #header div{
