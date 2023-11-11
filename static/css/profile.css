@@ -1,6 +1,10 @@
-* {}
+* {
 
-body {}
+}
+
+body {
+    
+}
 
 #profile {
     display: flex;
@@ -18,6 +22,7 @@ body {}
     background-color: #5496bd;
     border-radius: 10px;
     margin: 20px;
+    text-align: center;
 }
 
 #profileImage {
